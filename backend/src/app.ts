@@ -7,9 +7,11 @@ import { crearRutasAuth } from './rutas/auth';
 import { crearRutasComisiones } from './rutas/comisiones';
 import { crearRutasDiasNoLaborables } from './rutas/diasNoLaborables';
 import { crearRutasDocentes } from './rutas/docentes';
+import { crearRutasEntradas } from './rutas/entradas';
 import { AuthServicio } from './servicios/authServicio';
 import { ComisionServicio } from './servicios/comisionServicio';
 import { DiaNoLaborableServicio } from './servicios/diaNoLaborableServicio';
+import { EntradaServicio } from './servicios/entradaServicio';
 import { UsuarioServicio } from './servicios/usuarioServicio';
 
 export interface Dependencias {
@@ -23,6 +25,7 @@ export interface Servicios {
   usuarios: UsuarioServicio;
   comisiones: ComisionServicio;
   diasNoLaborables: DiaNoLaborableServicio;
+  entradas: EntradaServicio;
 }
 
 export function crearServicios({ repos, reloj, config }: Dependencias): Servicios {
@@ -30,7 +33,8 @@ export function crearServicios({ repos, reloj, config }: Dependencias): Servicio
   const usuarios = new UsuarioServicio(repos, auth);
   const comisiones = new ComisionServicio(repos, reloj);
   const diasNoLaborables = new DiaNoLaborableServicio(repos, reloj);
-  return { auth, usuarios, comisiones, diasNoLaborables };
+  const entradas = new EntradaServicio(repos, reloj);
+  return { auth, usuarios, comisiones, diasNoLaborables, entradas };
 }
 
 export function crearApp(deps?: Dependencias): Express {
@@ -47,6 +51,7 @@ export function crearApp(deps?: Dependencias): Express {
     app.use('/api/docentes', crearRutasDocentes(servicios));
     app.use('/api/comisiones', crearRutasComisiones(servicios));
     app.use('/api/dias-no-laborables', crearRutasDiasNoLaborables(servicios));
+    app.use('/api/entradas', crearRutasEntradas(servicios));
   }
 
   app.use('/api', rutaNoEncontrada);
