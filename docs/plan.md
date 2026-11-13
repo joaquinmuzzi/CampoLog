@@ -160,6 +160,8 @@ El token se guarda en `localStorage`; un `401` cierra la sesión y vuelve al log
 | DT5 | Fechas como texto `AAAA-MM-DD` en todo el sistema | Evita corrimientos de un día entre UTC y Argentina. |
 | DT6 | Migraciones SQL propias al arrancar | Sin ORM: el SQL queda a la vista y se explica en el informe. |
 | DT7 | Frontend servido con `serve` en Railway | Railway corre el `npm start` del frontend sobre el build estático. |
+| DT8 | Un servicio de Railway por carpeta (`/backend`, `/frontend`) más Postgres; comandos y healthcheck (`/api/salud`) configurados en cada servicio | El backend lee todo del entorno (`DATABASE_URL` como referencia a Postgres, `JWT_SECRET`, `FRONTEND_URL`, admin inicial); el frontend recibe `VITE_API_URL` al compilar. CORS solo permite `FRONTEND_URL`. |
+| DT9 | Datos de demostración opcionales (`SEMBRAR_DEMO=true`) | Quien corrige puede probar los tres roles en la app publicada sin cargar todo a mano; se cargan una sola vez. |
 
 ## 7. Preguntas para el analista
 

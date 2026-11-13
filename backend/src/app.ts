@@ -1,5 +1,6 @@
+import cors from 'cors';
 import express, { Express } from 'express';
-import { Config } from './config';
+import { Config, origenesPermitidos } from './config';
 import { manejarErrores, rutaNoEncontrada } from './middlewares/errores';
 import { Reloj } from './reloj';
 import { Repos } from './repositorios/tipos';
@@ -56,6 +57,9 @@ export function crearServicios({ repos, reloj, config }: Dependencias): Servicio
 
 export function crearApp(deps?: Dependencias): Express {
   const app = express();
+  // CORS: solo el frontend publicado (FRONTEND_URL) puede llamar a la API desde el navegador.
+  const origenes = origenesPermitidos(deps?.config.frontendUrl);
+  app.use(cors({ origin: origenes.length > 0 ? origenes : false, exposedHeaders: ['Content-Disposition'] }));
   app.use(express.json({ limit: '100kb' }));
 
   app.get('/api/salud', (_req, res) => {

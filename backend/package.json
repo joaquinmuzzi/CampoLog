@@ -5,7 +5,8 @@
   "description": "API de CampoLog",
   "main": "dist/server.js",
   "scripts": {
-    "dev": "tsx watch src/server.ts",
+    "dev": "tsx watch --env-file=.env src/server.ts",
+    "dev:memoria": "tsx watch src/dev.ts",
     "build": "tsc -p tsconfig.json && node scripts/copiar-sql.js",
     "start": "node dist/server.js",
     "test": "vitest run",

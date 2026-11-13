@@ -39,7 +39,7 @@
 | T29 | Lista de entradas y formulario de entrada | frontend | [x] |
 | T30 | Pantallas del docente | frontend | [x] |
 | T31 | Pantallas del administrador | frontend | [x] |
-| T32 | Configuración de despliegue (CORS, variables, Railway) | arquitecto | [ ] |
+| T32 | Configuración de despliegue (CORS, variables, Railway) | arquitecto | [x] |
 | T33 | Publicación en Railway y prueba en internet | arquitecto | [ ] |
 | T34 | README final e informe con las pruebas | analista | [ ] |
 
