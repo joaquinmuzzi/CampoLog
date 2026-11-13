@@ -38,7 +38,7 @@
 | T28 | Inicio del estudiante y calendario | frontend | [x] |
 | T29 | Lista de entradas y formulario de entrada | frontend | [x] |
 | T30 | Pantallas del docente | frontend | [x] |
-| T31 | Pantallas del administrador | frontend | [ ] |
+| T31 | Pantallas del administrador | frontend | [x] |
 | T32 | Configuración de despliegue (CORS, variables, Railway) | arquitecto | [ ] |
 | T33 | Publicación en Railway y prueba en internet | arquitecto | [ ] |
 | T34 | README final e informe con las pruebas | analista | [ ] |

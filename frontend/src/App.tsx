@@ -4,16 +4,13 @@ import { RutaProtegida } from './componentes/RutaProtegida';
 import { Cargando } from './componentes/comunes';
 import { Login } from './paginas/Login';
 import { Registro } from './paginas/Registro';
+import { ComisionAdmin, ComisionesAdmin, DocentesAdmin, FeriadosAdmin } from './paginas/admin/Admin';
 import { CarpetaEstudiante, ComisionDocente, MisComisiones, RevisarEntrada } from './paginas/docente/Docente';
 import { CalendarioEstudiante } from './paginas/estudiante/Calendario';
 import { EntradaFormulario } from './paginas/estudiante/EntradaFormulario';
 import { InicioEstudiante } from './paginas/estudiante/Inicio';
 import { MisEntradas } from './paginas/estudiante/MisEntradas';
 import { inicioDe, useSesion } from './sesion/Sesion';
-
-function Proximamente({ titulo }: { titulo: string }) {
-  return <h1>{titulo}</h1>;
-}
 
 function Raiz() {
   const { usuario, cargando } = useSesion();
@@ -44,7 +41,10 @@ export function App() {
       </Route>
 
       <Route element={<RutaProtegida roles={['ADMIN']}><Diseno /></RutaProtegida>}>
-        <Route path="/admin" element={<Proximamente titulo="Comisiones" />} />
+        <Route path="/admin" element={<ComisionesAdmin />} />
+        <Route path="/admin/comisiones/:id" element={<ComisionAdmin />} />
+        <Route path="/admin/docentes" element={<DocentesAdmin />} />
+        <Route path="/admin/feriados" element={<FeriadosAdmin />} />
       </Route>
 
       <Route path="*" element={<Raiz />} />
