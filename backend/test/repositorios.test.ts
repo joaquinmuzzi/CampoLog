@@ -1,6 +1,7 @@
 import { describe } from 'vitest';
 import { crearReposMemoria, crearReposPg } from '../src/repositorios';
 import { crearBaseDePrueba, URL_PG_PRUEBA } from './ayudas/pg';
+import { contratoDiasNoLaborables } from './contrato/diasNoLaborables';
 import { contratoUsuariosYComisiones, FabricaRepos } from './contrato/usuariosYComisiones';
 
 const memoria: FabricaRepos = async () => ({ repos: crearReposMemoria(), limpiar: async () => {} });
@@ -10,8 +11,10 @@ const postgres: FabricaRepos = async () => {
   return { repos: crearReposPg(pool), limpiar };
 };
 
-contratoUsuariosYComisiones('memoria', memoria);
+const contratos = [contratoUsuariosYComisiones, contratoDiasNoLaborables];
+
+for (const contrato of contratos) contrato('memoria', memoria);
 
 describe.skipIf(!URL_PG_PRUEBA)('PostgreSQL', () => {
-  contratoUsuariosYComisiones('postgres', postgres);
+  for (const contrato of contratos) contrato('postgres', postgres);
 });

@@ -1,5 +1,5 @@
 import {
-  CambiosComision, Comision, NuevaComision, NuevoUsuario, Rol, Usuario,
+  CambiosComision, Comision, DiaNoLaborable, NuevaComision, NuevoUsuario, Rol, Usuario,
 } from '../dominio/tipos';
 
 export interface RepoUsuarios {
@@ -24,7 +24,18 @@ export interface RepoComisiones {
   actualizar(id: number, cambios: CambiosComision): Promise<Comision>;
 }
 
+export interface RepoDiasNoLaborables {
+  /** Lanza DiaNoLaborableDuplicado si ya hay uno con la misma fecha y alcance (RN9). */
+  crear(nuevo: Omit<DiaNoLaborable, 'id'>): Promise<DiaNoLaborable>;
+  porId(id: number): Promise<DiaNoLaborable | null>;
+  listarFeriados(): Promise<DiaNoLaborable[]>;
+  /** Feriados más recesos de esa comisión, ordenados por fecha. */
+  paraComision(comisionId: number): Promise<DiaNoLaborable[]>;
+  borrar(id: number): Promise<void>;
+}
+
 export interface Repos {
   usuarios: RepoUsuarios;
   comisiones: RepoComisiones;
+  diasNoLaborables: RepoDiasNoLaborables;
 }

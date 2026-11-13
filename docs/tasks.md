@@ -20,7 +20,7 @@
 | T10 | Dominio: calendario de días de práctica | backend | [x] |
 | T11 | Comisiones: crear, editar y código de inscripción | backend | [x] |
 | T12 | Registro de estudiantes con código | backend | [x] |
-| T13 | Días no laborables y feriados 2026 | backend | [ ] |
+| T13 | Días no laborables y feriados 2026 | backend | [x] |
 | T14 | Dominio: validación de datos de una entrada | backend | [ ] |
 | T15 | Dominio: plazos y transiciones de estado | backend | [ ] |
 | T16 | Repositorios de entradas (memoria y PostgreSQL) con versión | backend | [ ] |
