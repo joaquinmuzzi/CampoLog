@@ -17,7 +17,7 @@
 | T07 | Administrador inicial al arrancar | backend | [x] |
 | T08 | Middleware de autenticación y roles | backend | [x] |
 | T09 | Alta y listado de docentes | backend | [x] |
-| T10 | Dominio: calendario de días de práctica | backend | [ ] |
+| T10 | Dominio: calendario de días de práctica | backend | [x] |
 | T11 | Comisiones: crear, editar y código de inscripción | backend | [ ] |
 | T12 | Registro de estudiantes con código | backend | [ ] |
 | T13 | Días no laborables y feriados 2026 | backend | [ ] |
