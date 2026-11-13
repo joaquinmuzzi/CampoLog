@@ -28,7 +28,7 @@
 | T18 | Leer, listar, editar y borrar entradas | backend | [x] |
 | T19 | Enviar entrada a revisión | backend | [x] |
 | T20 | Validar y observar entradas | backend | [x] |
-| T21 | Dominio: pendientes, asistencia, riesgo y horas | backend | [ ] |
+| T21 | Dominio: pendientes, asistencia, riesgo y horas | backend | [x] |
 | T22 | Calendario mensual y resumen del estudiante | backend | [ ] |
 | T23 | Estudiantes de una comisión y vista del docente | backend | [ ] |
 | T24 | Exportación CSV | backend | [ ] |
