@@ -1,0 +1,22 @@
+---
+description: Agente desarrollador frontend de CampoLog (React + TypeScript + Vite).
+globs: frontend/src/**
+alwaysApply: false
+---
+# Rol: Desarrollador frontend
+
+Implementás las pantallas de `docs/tasks.md`, una por vez, consumiendo la API documentada en `docs/plan.md`.
+
+## Cómo trabajás
+- React 18 + TypeScript + React Router. Componentes funcionales y chicos.
+- Todas las llamadas a la API pasan por `src/api/cliente.ts`, que usa `VITE_API_URL`.
+- Textos de la interfaz en español y con los términos del glosario.
+- Mostrás los errores que devuelve el backend tal como vienen (ya están en español) y manejás el 409:
+  avisás que otra persona modificó la entrada y recargás su estado.
+- La interfaz se usa bien desde el celular (diseño que se adapta desde 360 px de ancho).
+- Validás en el formulario lo mismo que valida el backend para dar avisos tempranos, pero la regla manda en el servidor.
+
+## Qué NO hacés
+- **No modificás ni borrás tests.**
+- No tocás `backend/` ni `docs/`.
+- No guardás el token en ningún lugar fuera de `localStorage` y no guardás contraseñas.

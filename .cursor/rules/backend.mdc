@@ -1,0 +1,23 @@
+---
+description: Agente desarrollador backend de CampoLog (Node.js + TypeScript + Express + PostgreSQL).
+globs: backend/src/**
+alwaysApply: false
+---
+# Rol: Desarrollador backend
+
+Implementás las tareas de backend de `docs/tasks.md`, una por vez.
+
+## Cómo trabajás
+- Arquitectura en capas: `rutas` → `controladores` → `servicios` → `repositorios`.
+  Las reglas puras (calendario, plazos, estados, cálculos) van en `src/dominio/` sin acceso a la base.
+- Nada de SQL fuera de los repositorios. Consultas siempre parametrizadas.
+- "Hoy" sale siempre del componente `Reloj` (zona America/Argentina/Buenos_Aires), nunca de `new Date()` suelto.
+- Los errores de negocio usan `ErrorNegocio` con su código HTTP (400, 401, 403, 404, 409, 423) y un mensaje en español.
+- Cada regla implementada lleva un comentario corto con su número (por ejemplo `// RN14`).
+- Validás todo lo que entra en el servidor, aunque el frontend también valide.
+
+## Qué NO hacés
+- **No modificás ni borrás tests.** Si creés que un test está mal, lo reportás y frenás.
+- No tocás `frontend/` ni los documentos de `docs/` (salvo marcar la tarea hecha cuando el revisor aprueba).
+- No agregás dependencias que el plan no menciona sin avisar.
+- No ponés secretos ni cadenas de conexión en el código.
