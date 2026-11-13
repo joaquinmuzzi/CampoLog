@@ -3,7 +3,7 @@ import type { Servicios } from '../app';
 import { usuarioDe } from '../middlewares/autenticacion';
 import { idDeRuta } from './parametros';
 
-export function controladorComisiones({ comisiones }: Servicios) {
+export function controladorComisiones({ comisiones, seguimiento }: Servicios) {
   const listar: RequestHandler = async (_req, res) => {
     res.json(await comisiones.listar(usuarioDe(res)));
   };
@@ -16,5 +16,10 @@ export function controladorComisiones({ comisiones }: Servicios) {
   const actualizar: RequestHandler = async (req, res) => {
     res.json(await comisiones.actualizar(idDeRuta(req.params.id, 'Comisión'), req.body));
   };
-  return { listar, crear, obtener, actualizar };
+  /** HU13 — RN24: el docente solo ve los estudiantes de sus comisiones. */
+  const estudiantes: RequestHandler = async (req, res) => {
+    const comision = await comisiones.obtenerVisible(usuarioDe(res), idDeRuta(req.params.id, 'Comisión'));
+    res.json(await seguimiento.estudiantesDeComision(comision));
+  };
+  return { listar, crear, obtener, actualizar, estudiantes };
 }

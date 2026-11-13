@@ -51,6 +51,13 @@ export class SeguimientoServicio {
     };
   }
 
+  /** HU13 — Estudiantes de una comisión con su situación, primero los que están en riesgo. */
+  async estudiantesDeComision(comision: Comision): Promise<ResumenDeEstudiante[]> {
+    const estudiantes = await this.repos.usuarios.listarEstudiantesDeComision(comision.id);
+    const resumenes = await Promise.all(estudiantes.map((e) => this.resumenCon(e, comision)));
+    return resumenes.sort((a, b) => Number(b.enRiesgo) - Number(a.enRiesgo));
+  }
+
   private async estudianteYComision(estudianteId: number) {
     const estudiante = await this.repos.usuarios.porId(estudianteId);
     if (!estudiante?.comisionId) throw noEncontrado('Estudiante');

@@ -11,5 +11,6 @@ export function crearRutasComisiones(servicios: Servicios): Router {
   rutas.post('/', requerirRol('ADMIN'), c.crear);
   rutas.get('/:id', requerirRol('ADMIN', 'DOCENTE'), c.obtener);
   rutas.patch('/:id', requerirRol('ADMIN'), c.actualizar);
+  rutas.get('/:id/estudiantes', requerirRol('ADMIN', 'DOCENTE'), c.estudiantes);
   return rutas;
 }

@@ -8,6 +8,7 @@ import { crearRutasComisiones } from './rutas/comisiones';
 import { crearRutasDiasNoLaborables } from './rutas/diasNoLaborables';
 import { crearRutasDocentes } from './rutas/docentes';
 import { crearRutasEntradas } from './rutas/entradas';
+import { crearRutasEstudiantes } from './rutas/estudiantes';
 import { crearRutasMi } from './rutas/mi';
 import { AccesoServicio } from './servicios/accesoServicio';
 import { AuthServicio } from './servicios/authServicio';
@@ -66,6 +67,7 @@ export function crearApp(deps?: Dependencias): Express {
     app.use('/api/dias-no-laborables', crearRutasDiasNoLaborables(servicios));
     app.use('/api/entradas', crearRutasEntradas(servicios));
     app.use('/api/mi', crearRutasMi(servicios));
+    app.use('/api/estudiantes', crearRutasEstudiantes(servicios));
   }
 
   app.use('/api', rutaNoEncontrada);
