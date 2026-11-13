@@ -4,6 +4,7 @@ import { RutaProtegida } from './componentes/RutaProtegida';
 import { Cargando } from './componentes/comunes';
 import { Login } from './paginas/Login';
 import { Registro } from './paginas/Registro';
+import { CarpetaEstudiante, ComisionDocente, MisComisiones, RevisarEntrada } from './paginas/docente/Docente';
 import { CalendarioEstudiante } from './paginas/estudiante/Calendario';
 import { EntradaFormulario } from './paginas/estudiante/EntradaFormulario';
 import { InicioEstudiante } from './paginas/estudiante/Inicio';
@@ -36,7 +37,10 @@ export function App() {
       </Route>
 
       <Route element={<RutaProtegida roles={['DOCENTE']}><Diseno /></RutaProtegida>}>
-        <Route path="/docente" element={<Proximamente titulo="Mis comisiones" />} />
+        <Route path="/docente" element={<MisComisiones />} />
+        <Route path="/docente/comisiones/:id" element={<ComisionDocente />} />
+        <Route path="/docente/estudiantes/:id" element={<CarpetaEstudiante />} />
+        <Route path="/docente/entradas/:id" element={<RevisarEntrada />} />
       </Route>
 
       <Route element={<RutaProtegida roles={['ADMIN']}><Diseno /></RutaProtegida>}>

@@ -37,7 +37,7 @@
 | T27 | Pantallas de login y registro | frontend | [x] |
 | T28 | Inicio del estudiante y calendario | frontend | [x] |
 | T29 | Lista de entradas y formulario de entrada | frontend | [x] |
-| T30 | Pantallas del docente | frontend | [ ] |
+| T30 | Pantallas del docente | frontend | [x] |
 | T31 | Pantallas del administrador | frontend | [ ] |
 | T32 | Configuración de despliegue (CORS, variables, Railway) | arquitecto | [ ] |
 | T33 | Publicación en Railway y prueba en internet | arquitecto | [ ] |

@@ -6,9 +6,9 @@ import { useSesion } from '../../sesion/Sesion';
 import { diasDeSemana, fechaConDia, fechaCorta, horas } from '../../util/formato';
 import { useDatos } from '../../util/useDatos';
 
-export function TarjetaResumen({ r }: { r: Resumen }) {
+export function TarjetaResumen({ r, titulo = 'Mi situación' }: { r: Resumen; titulo?: string }) {
   return (
-    <Tarjeta titulo="Mi situación">
+    <Tarjeta titulo={titulo}>
       <div className="grilla-datos">
         <Dato etiqueta={`Asistencia (${r.diasValidados} de ${r.diasTranscurridos} días validados)`} valor={`${r.asistencia} %`} destacado={r.enRiesgo ? 'mal' : 'bien'} />
         <Dato etiqueta={`Horas validadas de ${horas(r.horasCalendario)}`} valor={horas(r.horasValidadas)} />
