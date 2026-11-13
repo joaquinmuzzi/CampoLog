@@ -32,10 +32,11 @@ export function fechaConDia(fecha: string): string {
   return `${DIAS_CORTOS[dia]} ${String(d).padStart(2, '0')}/${String(m).padStart(2, '0')}`;
 }
 
-/** AAAA-MM → "septiembre de 2026" */
+/** AAAA-MM → "Septiembre de 2026" */
 export function nombreMes(mes: string): string {
   const [a, m] = mes.split('-').map(Number);
-  return `${MESES[m - 1]} de ${a}`;
+  const nombre = MESES[m - 1];
+  return `${nombre[0].toUpperCase()}${nombre.slice(1)} de ${a}`;
 }
 
 export function mesVecino(mes: string, delta: number): string {

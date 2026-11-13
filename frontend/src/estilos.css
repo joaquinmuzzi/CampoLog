@@ -123,7 +123,7 @@ th { color: var(--texto-suave); font-weight: 600; font-size: 0.85rem; }
 
 /* Calendario */
 .calendario-cabecera { display: flex; justify-content: space-between; align-items: center; gap: 0.5rem; margin-bottom: 0.75rem; }
-.calendario-cabecera h2 { text-transform: capitalize; }
+.calendario-cabecera h2 { text-align: center; }
 .calendario { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; }
 .calendario-dia-semana { text-align: center; font-size: 0.78rem; color: var(--texto-suave); font-weight: 600; padding-bottom: 0.2rem; }
 .dia {
@@ -134,7 +134,7 @@ th { color: var(--texto-suave); font-weight: 600; font-size: 0.85rem; }
 .dia-texto { line-height: 1.15; }
 .dia-sin_practica { color: #a3ada7; }
 .dia-futuro { background: #fff; border-color: var(--borde); }
-.dia-pendiente { background: var(--ambar-claro); border-color: #f0d68a; cursor: pointer; }
+.dia-pendiente { background: #fff; border: 2px dashed var(--ambar); cursor: pointer; }
 .dia-sin_registro { background: var(--rojo-claro); color: var(--rojo); }
 .dia-no_laborable { background: var(--gris-claro); color: var(--texto-suave); }
 .dia-con_entrada { cursor: pointer; border-color: var(--borde); background: #fff; }
@@ -144,6 +144,7 @@ th { color: var(--texto-suave); font-weight: 600; font-size: 0.85rem; }
 .dia-hoy { outline: 2px solid var(--verde); outline-offset: -2px; }
 .leyenda { display: flex; flex-wrap: wrap; gap: 0.4rem 1rem; margin-top: 0.75rem; font-size: 0.82rem; color: var(--texto-suave); }
 .leyenda span::before { content: ''; display: inline-block; width: 0.75rem; height: 0.75rem; border-radius: 3px; margin-right: 0.3rem; vertical-align: -1px; background: var(--c); border: 1px solid rgba(0,0,0,0.08); }
+.leyenda .leyenda-pendiente::before { background: #fff; border: 2px dashed var(--ambar); }
 
 /* Evidencias y comentarios */
 .evidencia { display: grid; grid-template-columns: 130px 1fr 1.4fr auto; gap: 0.5rem; align-items: center; }

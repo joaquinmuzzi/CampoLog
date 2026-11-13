@@ -35,7 +35,7 @@
 | T25 | Tests de contrato contra PostgreSQL | tester | [x] |
 | T26 | Proyecto frontend, cliente de API, sesión y rutas por rol | frontend | [x] |
 | T27 | Pantallas de login y registro | frontend | [x] |
-| T28 | Inicio del estudiante y calendario | frontend | [ ] |
+| T28 | Inicio del estudiante y calendario | frontend | [x] |
 | T29 | Lista de entradas y formulario de entrada | frontend | [ ] |
 | T30 | Pantallas del docente | frontend | [ ] |
 | T31 | Pantallas del administrador | frontend | [ ] |
