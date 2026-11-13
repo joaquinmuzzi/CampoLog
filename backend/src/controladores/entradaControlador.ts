@@ -20,5 +20,8 @@ export function controladorEntradas({ entradas }: Servicios) {
     await entradas.borrar(usuarioDe(res), idDeRuta(req.params.id, 'Entrada'), req.query);
     res.status(204).end();
   };
-  return { crear, listarPropias, obtener, editar, borrar };
+  const enviar: RequestHandler = async (req, res) => {
+    res.json(await entradas.enviar(usuarioDe(res), idDeRuta(req.params.id, 'Entrada'), req.body));
+  };
+  return { crear, listarPropias, obtener, editar, borrar, enviar };
 }

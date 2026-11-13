@@ -26,7 +26,7 @@
 | T16 | Repositorios de entradas (memoria y PostgreSQL) con versión | backend | [x] |
 | T17 | Crear entrada (con concurrencia) | backend | [x] |
 | T18 | Leer, listar, editar y borrar entradas | backend | [x] |
-| T19 | Enviar entrada a revisión | backend | [ ] |
+| T19 | Enviar entrada a revisión | backend | [x] |
 | T20 | Validar y observar entradas | backend | [ ] |
 | T21 | Dominio: pendientes, asistencia, riesgo y horas | backend | [ ] |
 | T22 | Calendario mensual y resumen del estudiante | backend | [ ] |

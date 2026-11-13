@@ -1,12 +1,12 @@
 import { z } from 'zod';
 import { esDiaDePractica } from '../dominio/calendario';
 import { validarDatosEntrada } from '../dominio/entrada';
-import { puedeBorrar, puedeEditar } from '../dominio/estados';
+import { NOMBRE_ESTADO, puedeBorrar, puedeEditar, puedeTransicionar } from '../dominio/estados';
 import { esFechaValida, esMesValido } from '../dominio/fechas';
-import { dentroDePlazoDeCarga, esFutura, PLAZO_DIAS } from '../dominio/plazos';
+import { dentroDePlazoDeCarga, dentroDePlazoDeCorreccion, esFutura, PLAZO_DIAS } from '../dominio/plazos';
 import { Comision, Entrada, EstadoEntrada, Usuario } from '../dominio/tipos';
 import { ErrorNegocio, noEncontrado } from '../errores';
-import { Reloj } from '../reloj';
+import { fechaEnArgentina, Reloj } from '../reloj';
 import { EntradaDuplicada, VersionDesactualizada } from '../repositorios/errores';
 import { ENTRADAS_POR_PAGINA, Repos } from '../repositorios/tipos';
 import { AccesoServicio, conflictoDeVersion } from './accesoServicio';
@@ -111,6 +111,28 @@ export class EntradaServicio {
       if (error instanceof VersionDesactualizada) throw conflictoDeVersion((await this.repos.entradas.porId(id)) ?? entrada);
       throw error;
     }
+  }
+
+  /** HU10 — Enviar a revisión (RN19, RN21). */
+  async enviar(usuario: DatosToken, id: number, cuerpo: unknown): Promise<Entrada> {
+    const entrada = await this.acceso.entradaPropia(usuario, id);
+    const { version } = esquemaVersion.parse(cuerpo);
+    if (version !== entrada.version) throw conflictoDeVersion(entrada); // RN23
+    if (!puedeTransicionar(entrada.estado, 'ENVIADA')) {
+      throw new ErrorNegocio(400, `No se puede enviar una entrada ${NOMBRE_ESTADO[entrada.estado]}`); // RN19
+    }
+    if (entrada.evidencias.length === 0) {
+      throw new ErrorNegocio(400, 'Para enviar la entrada necesitás cargar al menos una evidencia'); // RN21
+    }
+    const hoy = this.reloj.hoy();
+    if (entrada.estado === 'BORRADOR' && !dentroDePlazoDeCarga(entrada.fecha, hoy)) {
+      throw new ErrorNegocio(400, `Venció el plazo para enviar esta jornada (${PLAZO_DIAS} días desde su fecha)`); // RN21
+    }
+    if (entrada.estado === 'OBSERVADA' && entrada.observadaEn
+      && !dentroDePlazoDeCorreccion(fechaEnArgentina(entrada.observadaEn), hoy)) {
+      throw new ErrorNegocio(400, `Venció el plazo de corrección (${PLAZO_DIAS} días desde la observación)`); // RN21
+    }
+    return this.guardar(entrada, version, { estado: 'ENVIADA', enviadaEn: this.reloj.ahora() });
   }
 
   /** Guarda cambios con control de versión; si alguien la modificó en el medio, responde conflicto (RN23). */
