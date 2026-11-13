@@ -41,7 +41,7 @@
 | T31 | Pantallas del administrador | frontend | [x] |
 | T32 | Configuración de despliegue (CORS, variables, Railway) | arquitecto | [x] |
 | T33 | Publicación en Railway y prueba en internet | arquitecto | [x] |
-| T34 | README final e informe con las pruebas | analista | [ ] |
+| T34 | README final e informe con las pruebas | analista | [x] |
 
 ## Etapa 1 — Base
 
