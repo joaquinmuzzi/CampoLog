@@ -5,7 +5,9 @@ import { Cargando } from './componentes/comunes';
 import { Login } from './paginas/Login';
 import { Registro } from './paginas/Registro';
 import { CalendarioEstudiante } from './paginas/estudiante/Calendario';
+import { EntradaFormulario } from './paginas/estudiante/EntradaFormulario';
 import { InicioEstudiante } from './paginas/estudiante/Inicio';
+import { MisEntradas } from './paginas/estudiante/MisEntradas';
 import { inicioDe, useSesion } from './sesion/Sesion';
 
 function Proximamente({ titulo }: { titulo: string }) {
@@ -28,6 +30,9 @@ export function App() {
       <Route element={<RutaProtegida roles={['ESTUDIANTE']}><Diseno /></RutaProtegida>}>
         <Route path="/estudiante" element={<InicioEstudiante />} />
         <Route path="/estudiante/calendario" element={<CalendarioEstudiante />} />
+        <Route path="/estudiante/entradas" element={<MisEntradas />} />
+        <Route path="/estudiante/entradas/nueva" element={<EntradaFormulario />} />
+        <Route path="/estudiante/entradas/:id" element={<EntradaFormulario />} />
       </Route>
 
       <Route element={<RutaProtegida roles={['DOCENTE']}><Diseno /></RutaProtegida>}>
