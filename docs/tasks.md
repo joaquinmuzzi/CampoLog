@@ -8,7 +8,7 @@
 
 | Tarea | Título | Agente | Estado |
 |---|---|---|---|
-| T01 | Proyecto backend, framework de tests y `/api/salud` | backend | [ ] |
+| T01 | Proyecto backend, framework de tests y `/api/salud` | backend | [x] |
 | T02 | Reloj de Argentina y utilidades de fechas | backend | [ ] |
 | T03 | Errores de negocio y middleware de errores | backend | [ ] |
 | T04 | Esquema de base de datos, migraciones y conexión | backend | [ ] |
