@@ -15,6 +15,7 @@ import { AuthServicio } from './servicios/authServicio';
 import { ComisionServicio } from './servicios/comisionServicio';
 import { DiaNoLaborableServicio } from './servicios/diaNoLaborableServicio';
 import { EntradaServicio } from './servicios/entradaServicio';
+import { ExportacionServicio } from './servicios/exportacionServicio';
 import { RevisionServicio } from './servicios/revisionServicio';
 import { SeguimientoServicio } from './servicios/seguimientoServicio';
 import { UsuarioServicio } from './servicios/usuarioServicio';
@@ -34,6 +35,7 @@ export interface Servicios {
   entradas: EntradaServicio;
   revision: RevisionServicio;
   seguimiento: SeguimientoServicio;
+  exportacion: ExportacionServicio;
 }
 
 export function crearServicios({ repos, reloj, config }: Dependencias): Servicios {
@@ -48,6 +50,7 @@ export function crearServicios({ repos, reloj, config }: Dependencias): Servicio
     entradas: new EntradaServicio(repos, reloj, acceso),
     revision: new RevisionServicio(repos, reloj, acceso),
     seguimiento: new SeguimientoServicio(repos, reloj),
+    exportacion: new ExportacionServicio(repos),
   };
 }
 

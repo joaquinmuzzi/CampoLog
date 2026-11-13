@@ -9,5 +9,6 @@ export function crearRutasEstudiantes(servicios: Servicios): Router {
   rutas.use(autenticar(servicios.auth), requerirRol('ADMIN', 'DOCENTE'));
   rutas.get('/:id/entradas', c.entradasDe);
   rutas.get('/:id/resumen', c.resumenDe);
+  rutas.get('/:id/exportacion', c.exportar);
   return rutas;
 }

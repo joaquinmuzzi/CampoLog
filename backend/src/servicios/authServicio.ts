@@ -76,6 +76,10 @@ export class AuthServicio {
     return true;
   }
 
+  usuarioPorId(id: number): Promise<Usuario | null> {
+    return this.repos.usuarios.porId(id);
+  }
+
   /** Usuario de la sesión actual y, si es estudiante, su comisión. */
   async yo(id: number): Promise<{ usuario: UsuarioPublico; comision: Comision | null }> {
     const usuario = await this.repos.usuarios.porId(id);

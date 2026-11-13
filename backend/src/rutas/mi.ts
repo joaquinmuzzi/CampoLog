@@ -9,5 +9,6 @@ export function crearRutasMi(servicios: Servicios): Router {
   rutas.use(autenticar(servicios.auth), requerirRol('ESTUDIANTE'));
   rutas.get('/calendario', c.calendario);
   rutas.get('/resumen', c.resumen);
+  rutas.get('/exportacion', c.exportar);
   return rutas;
 }
