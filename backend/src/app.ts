@@ -4,7 +4,9 @@ import { manejarErrores, rutaNoEncontrada } from './middlewares/errores';
 import { Reloj } from './reloj';
 import { Repos } from './repositorios/tipos';
 import { crearRutasAuth } from './rutas/auth';
+import { crearRutasDocentes } from './rutas/docentes';
 import { AuthServicio } from './servicios/authServicio';
+import { UsuarioServicio } from './servicios/usuarioServicio';
 
 export interface Dependencias {
   repos: Repos;
@@ -14,11 +16,13 @@ export interface Dependencias {
 
 export interface Servicios {
   auth: AuthServicio;
+  usuarios: UsuarioServicio;
 }
 
 export function crearServicios({ repos, reloj, config }: Dependencias): Servicios {
   const auth = new AuthServicio(repos, reloj, config);
-  return { auth };
+  const usuarios = new UsuarioServicio(repos, auth);
+  return { auth, usuarios };
 }
 
 export function crearApp(deps?: Dependencias): Express {
@@ -32,6 +36,7 @@ export function crearApp(deps?: Dependencias): Express {
   if (deps) {
     const servicios = crearServicios(deps);
     app.use('/api/auth', crearRutasAuth(servicios));
+    app.use('/api/docentes', crearRutasDocentes(servicios));
   }
 
   app.use('/api', rutaNoEncontrada);
