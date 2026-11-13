@@ -11,7 +11,7 @@
 | T01 | Proyecto backend, framework de tests y `/api/salud` | backend | [x] |
 | T02 | Reloj de Argentina y utilidades de fechas | backend | [x] |
 | T03 | Errores de negocio y middleware de errores | backend | [x] |
-| T04 | Esquema de base de datos, migraciones y conexión | backend | [ ] |
+| T04 | Esquema de base de datos, migraciones y conexión | backend | [x] |
 | T05 | Repositorios en memoria y PostgreSQL de usuarios y comisiones | backend | [ ] |
 | T06 | Contraseñas, tokens y login con bloqueo | backend | [ ] |
 | T07 | Administrador inicial al arrancar | backend | [ ] |
