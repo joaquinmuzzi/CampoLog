@@ -32,7 +32,7 @@
 | T22 | Calendario mensual y resumen del estudiante | backend | [x] |
 | T23 | Estudiantes de una comisión y vista del docente | backend | [x] |
 | T24 | Exportación CSV | backend | [x] |
-| T25 | Tests de contrato contra PostgreSQL | tester | [ ] |
+| T25 | Tests de contrato contra PostgreSQL | tester | [x] |
 | T26 | Proyecto frontend, cliente de API, sesión y rutas por rol | frontend | [ ] |
 | T27 | Pantallas de login y registro | frontend | [ ] |
 | T28 | Inicio del estudiante y calendario | frontend | [ ] |

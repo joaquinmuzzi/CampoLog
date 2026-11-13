@@ -79,6 +79,29 @@ export function contratoEntradas(nombre: string, fabrica: FabricaRepos) {
       expect(obs.comentarios[0]).toMatchObject({ autorId: docenteId, autorNombre: 'Diego Morales', tipo: 'OBSERVACION', texto: 'Falta el link al commit' });
     });
 
+    it('T25 — RN15: 5 pedidos en paralelo para la misma fecha crean una sola entrada', async () => {
+      const resultados = await Promise.allSettled(Array.from({ length: 5 }, () => crear('2026-09-17')));
+      const creadas = resultados.filter((r) => r.status === 'fulfilled');
+      const rechazos = resultados.filter((r): r is PromiseRejectedResult => r.status === 'rejected');
+      expect(creadas).toHaveLength(1);
+      expect(rechazos).toHaveLength(4);
+      expect(rechazos.every((r) => r.reason instanceof EntradaDuplicada)).toBe(true);
+      expect((await repos.entradas.todasDeEstudiante(estudianteId)).filter((e) => e.fecha === '2026-09-17')).toHaveLength(1);
+    });
+
+    it('T25 — RN23: 3 cambios en paralelo con la misma versión: uno gana y los otros reciben versión desactualizada', async () => {
+      const e = await crear('2026-09-15');
+      const resultados = await Promise.allSettled([
+        repos.entradas.actualizarConVersion(e.id, 1, { estado: 'ENVIADA', enviadaEn: new Date() }),
+        repos.entradas.actualizarConVersion(e.id, 1, { datos: { ...DATOS, actividad: 'Cambio A' } }),
+        repos.entradas.actualizarConVersion(e.id, 1, { datos: { ...DATOS, actividad: 'Cambio B' } }),
+      ]);
+      expect(resultados.filter((r) => r.status === 'fulfilled')).toHaveLength(1);
+      const rechazos = resultados.filter((r): r is PromiseRejectedResult => r.status === 'rejected');
+      expect(rechazos.every((r) => r.reason instanceof VersionDesactualizada)).toBe(true);
+      expect((await repos.entradas.porId(e.id))?.version).toBe(2);
+    });
+
     it('borra con la versión correcta', async () => {
       const e = await crear('2026-09-15');
       await repos.entradas.borrarConVersion(e.id, 1);

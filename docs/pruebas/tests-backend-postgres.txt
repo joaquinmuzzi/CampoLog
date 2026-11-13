@@ -1,0 +1,204 @@
+# Corrida completa de tests del backend contra PostgreSQL (Railway)
+# Fecha: 2026-11-12 22:18 — comando: TEST_DATABASE_URL=<postgres de Railway> npx vitest run --reporter=verbose
+
+(!) Your Vite config uses features that are unsupported by `configLoader: 'native'`, which is planned to become the default in a future major version of Vite:
+  - ESM syntax in a file loaded as CommonJS (vitest.config.ts:1:1). Use a `.mjs` extension or set `"type": "module"` in the closest package.json
+Set `VITE_CONFIG_NATIVE_IGNORE_WARNING=true` to suppress this warning.
+
+ RUN  v5.1.0 C:/Users/Joaquín Muzzi/Desktop/Generacion T - TPs/CampoLog/backend
+
+ ✓ test/comisiones.test.ts > T11 — RN7: código de inscripción > tiene 6 caracteres del alfabeto permitido (sin 0, O, 1 ni I) 12ms
+ ✓ test/login.test.ts > T06 — RN2: contraseña > acepta 8 caracteres con letra y número 5ms
+ ✓ test/login.test.ts > T06 — RN2: contraseña > rechaza menos de 8 caracteres 2ms
+ ✓ test/login.test.ts > T06 — RN2: contraseña > rechaza "abcdefgh" porque le falta un número 1ms
+ ✓ test/login.test.ts > T06 — RN2: contraseña > rechaza "12345678" porque le falta una letra 0ms
+ ✓ test/comisiones.test.ts > T11 — HU3: gestionar comisiones > el administrador crea una comisión con código único y días ordenados (RN7) 169ms
+ ✓ test/comisiones.test.ts > T11 — HU3: gestionar comisiones > acepta 270 días de duración y rechaza 271 (RN7) 41ms
+ ✓ test/diasNoLaborables.test.ts > T13 — HU5: feriados > recién instalado, el sistema tiene los feriados nacionales 2026 (RN9) 138ms
+ ✓ test/login.test.ts > T06 — HU2: login > con email y contraseña correctos devuelve un token de 8 horas y el usuario sin datos sensibles (RN5) 150ms
+ ✓ test/login.test.ts > T06 — HU2: login > con contraseña incorrecta o email inexistente responde 401 con el mismo mensaje 37ms
+ ✓ test/revision.test.ts > T20 — HU11: revisar entradas > el docente valida una entrada ENVIADA de su comisión y queda VALIDADA (RN19, RN22) 166ms
+ ✓ test/revision.test.ts > T20 — HU11: revisar entradas > una vez VALIDADA nadie la modifica: ni el estudiante ni una nueva revisión (RN19) 53ms
+ ✓ test/revision.test.ts > T20 — HU11: revisar entradas > observar con 5 caracteres se rechaza; con 10 o más pasa a OBSERVADA con el comentario (RN22) 33ms
+ ✓ test/editarEntradas.test.ts > T18 — HU14: listar mis entradas > con 12 entradas muestra 10 de la más nueva a la más vieja y una segunda página con 2 (RN29) 160ms
+ ✓ test/editarEntradas.test.ts > T18 — HU14: listar mis entradas > con el filtro mes 2026-09 y estado OBSERVADA solo muestra las observadas de septiembre (RN29) 35ms
+ ✓ test/enviarEntrada.test.ts > T19 — HU10: enviar a revisión > un BORRADOR con evidencia y en plazo pasa a ENVIADA (RN19, RN21) 204ms
+ ✓ test/enviarEntrada.test.ts > T19 — HU10: enviar a revisión > un BORRADOR sin evidencias no se envía (RN21) 29ms
+ ✓ test/enviarEntrada.test.ts > T19 — HU10: enviar a revisión > un BORRADOR de hace más de 7 días no se envía (RN21) 27ms
+ ✓ test/enviarEntrada.test.ts > T19 — HU10: enviar a revisión > una OBSERVADA hace 3 días se reenvía; hace 8 días, no (RN21) 44ms
+ ✓ test/crearEntrada.test.ts > T17 — HU8: registrar una jornada > en un día de práctica transcurrido y en plazo queda en BORRADOR con versión 1 (RN12, RN14, RN19) 206ms
+ ✓ test/crearEntrada.test.ts > T17 — HU8: registrar una jornada > un sábado, un día que no es de la comisión o un feriado se rechazan (RN12) 53ms
+ ✓ test/crearEntrada.test.ts > T17 — HU8: registrar una jornada > una fecha de mañana se rechaza (RN13) 28ms
+ ✓ test/diasNoLaborables.test.ts > T13 — HU5: feriados > el administrador agrega un feriado futuro y aparece para todas las comisiones (RN9) 138ms
+ ✓ test/diasNoLaborables.test.ts > T13 — HU5: feriados > una fecha pasada no se puede agregar ni borrar (RN10) 47ms
+ ✓ test/diasNoLaborables.test.ts > T13 — HU5: feriados > hoy sí se puede cargar (RN10) y un feriado repetido da 409 (RN9) 32ms
+ ✓ test/login.test.ts > T06 — HU2: login > RN6: 5 fallos seguidos bloquean la cuenta y el intento correcto antes de 15 minutos da 423 68ms
+ ✓ test/login.test.ts > T06 — HU2: login > RN6: 4 fallos no bloquean 53ms
+ ✓ test/comisiones.test.ts > T11 — HU3: gestionar comisiones > rechaza fin anterior al inicio, sábados, días repetidos, horas fuera de 1 a 8 y un docente inexistente 67ms
+ ✓ test/revision.test.ts > T20 — HU11: revisar entradas > una entrada en BORRADOR no se puede validar (RN19, RN22) 19ms
+ ✓ test/revision.test.ts > T20 — HU11: revisar entradas > el docente de otra comisión recibe 404 y el estudiante no puede revisar (RN22, RN24) 36ms
+ ✓ test/revision.test.ts > T20 — HU11: revisar entradas > si el estudiante la editó después de que el docente la abrió, validar da 409 (RN23) 25ms
+ ✓ test/revision.test.ts > T20 — HU11: revisar entradas > dos revisiones simultáneas con la misma versión: una gana y la otra recibe 409 (RN23) 29ms
+ ✓ test/editarEntradas.test.ts > T18 — HU9: editar o borrar una entrada > un BORRADOR se edita con la versión actual y la versión sube a 2 (RN20, RN23) 85ms
+ ✓ test/editarEntradas.test.ts > T18 — HU9: editar o borrar una entrada > una entrada ENVIADA o VALIDADA no se edita (RN20) 32ms
+ ✓ test/editarEntradas.test.ts > T18 — HU9: editar o borrar una entrada > una OBSERVADA se edita pero no se borra (RN20) 48ms
+ ✓ test/enviarEntrada.test.ts > T19 — HU10: enviar a revisión > una entrada ya ENVIADA o VALIDADA no se vuelve a enviar (RN19) 32ms
+ ✓ test/enviarEntrada.test.ts > T19 — HU10: enviar a revisión > con una versión vieja responde 409 (RN23) 45ms
+ ✓ test/crearEntrada.test.ts > T17 — HU8: registrar una jornada > hace 7 días se acepta y hace 8 días se rechaza por plazo vencido (RN14) 39ms
+ ✓ test/crearEntrada.test.ts > T17 — HU8: registrar una jornada > 2,3 horas o más horas que la jornada se rechazan (RN16) 37ms
+ ✓ test/crearEntrada.test.ts > T17 — HU8: registrar una jornada > una evidencia con URL "ftp://x" se rechaza (RN18) 28ms
+ ✓ test/crearEntrada.test.ts > T17 — HU8: registrar una jornada > una segunda entrada para la misma fecha da 409 e informa cuál es (RN15) 34ms
+ ✓ test/diasNoLaborables.test.ts > T13 — HU6: recesos del docente > el docente carga un receso futuro en su comisión y solo la afecta a ella (RN9) 32ms
+ ✓ test/diasNoLaborables.test.ts > T13 — HU6: recesos del docente > en una comisión que no es suya recibe 403 (HU6) 20ms
+ ✓ test/diasNoLaborables.test.ts > T13 — HU6: recesos del docente > el docente no puede cargar feriados ni el estudiante recesos (403) 32ms
+ ✓ test/comisiones.test.ts > T11 — HU3: gestionar comisiones > en una comisión que ya empezó no se cambian los días pero sí el nombre (RN11) 90ms
+ ✓ test/comisiones.test.ts > T11 — HU3: gestionar comisiones > antes de la fecha de inicio el calendario sí se puede cambiar (RN11) 37ms
+ ✓ test/comisiones.test.ts > T11 — HU3: gestionar comisiones > el docente solo ve sus comisiones y una ajena responde 404 (RN24) 55ms
+ ✓ test/login.test.ts > T06 — HU2: login > RN6: a los 15 minutos del bloqueo entra y el contador vuelve a cero 70ms
+ ✓ test/comisiones.test.ts > T11 — HU3: gestionar comisiones > un docente no puede crear comisiones (403) 19ms
+ ✓ test/crearEntrada.test.ts > T17 — HU8: registrar una jornada > dos pedidos simultáneos para la misma fecha dejan una sola entrada y uno recibe 409 (RN15) 33ms
+ ✓ test/crearEntrada.test.ts > T17 — HU8: registrar una jornada > una fecha mal escrita da 400 y un docente no puede crear entradas (403) 26ms
+ ✓ test/editarEntradas.test.ts > T18 — HU9: editar o borrar una entrada > si otra persona la modificó después de abrirla, guardar da 409 con la versión y el estado actuales (RN23) 27ms
+ ✓ test/editarEntradas.test.ts > T18 — HU9: editar o borrar una entrada > la fecha no se cambia y sin versión se rechaza (RN20, RN23) 27ms
+ ✓ test/editarEntradas.test.ts > T18 — HU9: editar o borrar una entrada > un BORRADOR se borra con la versión actual (RN20) 20ms
+ ✓ test/editarEntradas.test.ts > T18 — RN24: privacidad > otro estudiante y un docente de otra comisión reciben 404; el docente a cargo y el admin la ven 61ms
+ ✓ test/diasNoLaborables.test.ts > T13 — HU6: recesos del docente > un receso repetido en la misma comisión da 409 y el docente puede borrar uno futuro (RN9) 41ms
+ ✓ test/diasNoLaborables.test.ts > T13 — HU6: recesos del docente > el estudiante ve los recesos de su comisión sin indicarla 30ms
+ ✓ test/login.test.ts > T06 — HU2: login > RN6: un login correcto en el medio reinicia el contador 129ms
+ ✓ test/login.test.ts > T06 — HU2: login > RN5: el token vence a las 8 horas 11ms
+ ✓ test/errores.test.ts > T03 — errores de negocio > responde el status y el mensaje de un ErrorNegocio, con detalle 102ms
+ ✓ test/autenticacion.test.ts > T08 — autenticación y roles > sin token responde 401 93ms
+ ✓ test/errores.test.ts > T03 — errores de negocio > traduce un error de validación de zod a 400 con el mensaje en español 98ms
+ ✓ test/registro.test.ts > T12 — HU1: registro de estudiantes > con un código válido crea la cuenta en esa comisión e inicia sesión (RN2, RN3) 213ms
+ ✓ test/errores.test.ts > T03 — errores de negocio > un error interno responde 500 genérico y no filtra el mensaje interno 16ms
+ ✓ test/errores.test.ts > T03 — errores de negocio > un JSON mal formado responde 400 12ms
+ ✓ test/errores.test.ts > T03 — errores de negocio > una ruta de la API que no existe responde 404 10ms
+ ✓ test/exportacion.test.ts > T24 — RN28: generar el CSV > incluye solo las validadas, ordenadas por fecha ascendente, con ";" y BOM 45ms
+ ✓ test/exportacion.test.ts > T24 — RN28: generar el CSV > escapa comillas y separa varias evidencias con " | "; usa el comentario de validación 1ms
+ ✓ test/exportacion.test.ts > T24 — RN28: generar el CSV > arma el nombre de archivo sin acentos ni espacios 1ms
+ ✓ test/autenticacion.test.ts > T08 — autenticación y roles > con un token inválido o vencido responde 401 (RN5) 55ms
+ ✓ test/autenticacion.test.ts > T08 — autenticación y roles > con un rol no permitido responde 403 27ms
+ ✓ test/autenticacion.test.ts > T08 — autenticación y roles > con el rol correcto deja pasar 18ms
+ ✓ test/autenticacion.test.ts > T08 — autenticación y roles > GET /api/auth/yo devuelve el usuario de la sesión sin datos sensibles 43ms
+ ✓ test/registro.test.ts > T12 — HU1: registro de estudiantes > con un código inexistente se rechaza con el mensaje de la spec (RN3) 23ms
+ ✓ test/registro.test.ts > T12 — HU1: registro de estudiantes > con un email ya usado (aunque cambien las mayúsculas) se rechaza (RN2) 36ms
+ ✓ test/registro.test.ts > T12 — HU1: registro de estudiantes > con la contraseña "abcdefgh" se rechaza porque le falta un número (RN2) 15ms
+ ✓ test/registro.test.ts > T12 — HU1: registro de estudiantes > valida nombre y apellido de 2 a 60 caracteres (RN3) 24ms
+ ✓ test/miCarpeta.test.ts > T22 — HU7: ver mi calendario > cada día de práctica del mes muestra su estado, y los recesos su motivo (RN8, RN14, RN25) 173ms
+ ✓ test/miCarpeta.test.ts > T22 — HU7: ver mi calendario > sin mes, devuelve el mes actual; un mes mal escrito da 400 35ms
+ ✓ test/miCarpeta.test.ts > T22 — HU12: ver mi resumen > muestra asistencia, horas validadas, horas del calendario y pendientes (RN25, RN26, RN27) 22ms
+ ✓ test/miCarpeta.test.ts > T22 — HU12: ver mi resumen > solo el estudiante usa /api/mi (un docente recibe 403) 22ms
+ ✓ test/vistaDocente.test.ts > T23 — HU13: seguir a mis estudiantes > lista los estudiantes con asistencia, horas, enviadas por revisar y riesgo, primero los que están en riesgo 172ms
+ ✓ test/vistaDocente.test.ts > T23 — HU13: seguir a mis estudiantes > una comisión que no es del docente responde 404 (RN24) 39ms
+ ✓ test/exportacion.test.ts > T24 — HU15: exportar la carpeta > el estudiante descarga su carpeta con solo las validadas 124ms
+ ✓ test/exportacion.test.ts > T24 — HU15: exportar la carpeta > su docente la descarga; un docente de otra comisión recibe 404 (RN24, RN28) 38ms
+ ✓ test/vistaDocente.test.ts > T23 — HU13: seguir a mis estudiantes > el docente ve las entradas y el resumen de un estudiante suyo; el de otra comisión, 404 (RN24) 77ms
+ ✓ test/vistaDocente.test.ts > T23 — HU13: seguir a mis estudiantes > un estudiante no puede usar la vista del docente (403) 19ms
+ ✓ test/docentes.test.ts > T09 — HU4: alta de docentes > el administrador crea un docente que después puede iniciar sesión (RN4, RN2) 273ms
+ ✓ test/docentes.test.ts > T09 — HU4: alta de docentes > un docente o un estudiante que intenta crear un docente recibe 403 (RN4) 30ms
+ ✓ test/docentes.test.ts > T09 — HU4: alta de docentes > rechaza un email repetido con 409 y una contraseña inválida con 400 39ms
+ ✓ test/fechas.test.ts > T02 — utilidades de fechas > valida fechas AAAA-MM-DD reales 12ms
+ ✓ test/fechas.test.ts > T02 — utilidades de fechas > suma días cruzando meses y años 1ms
+ ✓ test/fechas.test.ts > T02 — utilidades de fechas > calcula la diferencia en días entre dos fechas 0ms
+ ✓ test/fechas.test.ts > T02 — utilidades de fechas > devuelve el día de la semana con 1 = lunes y 7 = domingo 1ms
+ ✓ test/fechas.test.ts > T02 — utilidades de fechas > obtiene el mes y lista sus días 2ms
+ ✓ test/fechas.test.ts > T02 — reloj > a las 23:30 de Argentina (02:30 UTC del día siguiente) hoy sigue siendo el día de Argentina 44ms
+ ✓ test/fechas.test.ts > T02 — reloj > el reloj fijo devuelve la fecha indicada y se puede adelantar 2ms
+ ✓ test/seguimiento.test.ts > T21 — RN26: asistencia y riesgo > con 10 días transcurridos y 7 validados la asistencia es 70 % y está en riesgo 8ms
+ ✓ test/seguimiento.test.ts > T21 — RN26: asistencia y riesgo > con 3 días transcurridos y 1 validado la asistencia es 33 % pero no está en riesgo 3ms
+ ✓ test/seguimiento.test.ts > T21 — RN26: asistencia y riesgo > con 4 días transcurridos y 2 validados (50 %) ya está en riesgo; con 3 de 4 (75 %) no 2ms
+ ✓ test/seguimiento.test.ts > T21 — RN26: asistencia y riesgo > las entradas enviadas u observadas no suman asistencia 3ms
+ ✓ test/seguimiento.test.ts > T21 — RN26: asistencia y riesgo > si la comisión no empezó: 0 días transcurridos, 100 % de asistencia, sin riesgo ni pendientes 2ms
+ ✓ test/seguimiento.test.ts > T21 — RN27: horas > validadas de 3 y 2,5 horas suman 5,5; las horas del calendario son días de práctica × horas por jornada 1ms
+ ✓ test/seguimiento.test.ts > T21 — RN27: horas > un feriado futuro descuenta un día de práctica y sus horas (RN8, RN27) 1ms
+ ✓ test/seguimiento.test.ts > T21 — RN25: pendientes de carga > lista los días sin entrada dentro del plazo con los días que les quedan, los más urgentes primero 1ms
+ ✓ test/seguimiento.test.ts > T21 — HU7: estado de cada día del calendario > distingue día sin práctica, no laborable, futuro, pendiente, sin registro y con entrada 6ms
+ ✓ test/migraciones.test.ts > T04 — migraciones > aplica las migraciones pendientes en orden por nombre 36ms
+ ✓ test/migraciones.test.ts > T04 — migraciones > no repite una migración ya aplicada 2ms
+ ✓ test/migraciones.test.ts > T04 — migraciones > lee el esquema inicial desde src/db/migraciones 3ms
+ ✓ test/repositorios.test.ts > T05 — contrato de usuarios y comisiones (memoria) > crea un usuario guardando el email en minúsculas y lo encuentra sin distinguir mayúsculas (RN2) 5ms
+ ✓ test/repositorios.test.ts > T05 — contrato de usuarios y comisiones (memoria) > rechaza un email repetido con EmailDuplicado (RN2) 2ms
+ ✓ test/repositorios.test.ts > T05 — contrato de usuarios y comisiones (memoria) > guarda los intentos fallidos y el bloqueo (RN6) 3ms
+ ✓ test/repositorios.test.ts > T05 — contrato de usuarios y comisiones (memoria) > crea comisiones, las busca por código y por docente, y las actualiza 5ms
+ ✓ test/repositorios.test.ts > T05 — contrato de usuarios y comisiones (memoria) > rechaza un código de inscripción repetido con CodigoDuplicado (RN7) 1ms
+ ✓ test/repositorios.test.ts > T13 — contrato de días no laborables (memoria) > viene con los feriados nacionales 2026 precargados (RN9) 21ms
+ ✓ test/repositorios.test.ts > T13 — contrato de días no laborables (memoria) > para una comisión devuelve feriados y sus recesos, pero no los de otra (RN9) 1ms
+ ✓ test/repositorios.test.ts > T13 — contrato de días no laborables (memoria) > rechaza la misma fecha con el mismo alcance, pero permite la misma fecha en otra comisión (RN9) 2ms
+ ✓ test/repositorios.test.ts > T13 — contrato de días no laborables (memoria) > borra un día no laborable 1ms
+ ✓ test/repositorios.test.ts > T16 — contrato de entradas (memoria) > crea una entrada en BORRADOR, versión 1, con sus evidencias en orden 2ms
+ ✓ test/repositorios.test.ts > T16 — contrato de entradas (memoria) > rechaza una segunda entrada del mismo estudiante en la misma fecha (RN15) 1ms
+ ✓ test/repositorios.test.ts > T16 — contrato de entradas (memoria) > actualiza con la versión correcta: suma 1 y reemplaza las evidencias (RN23) 1ms
+ ✓ test/repositorios.test.ts > T16 — contrato de entradas (memoria) > rechaza actualizar o borrar con una versión vieja (RN23) 1ms
+ ✓ test/repositorios.test.ts > T16 — contrato de entradas (memoria) > guarda comentarios con el nombre del autor y cambia el estado 1ms
+ ✓ test/repositorios.test.ts > T16 — contrato de entradas (memoria) > T25 — RN15: 5 pedidos en paralelo para la misma fecha crean una sola entrada 2ms
+ ✓ test/repositorios.test.ts > T16 — contrato de entradas (memoria) > T25 — RN23: 3 cambios en paralelo con la misma versión: uno gana y los otros reciben versión desactualizada 1ms
+ ✓ test/repositorios.test.ts > T16 — contrato de entradas (memoria) > borra con la versión correcta 1ms
+ ✓ test/repositorios.test.ts > T16 — contrato de entradas (memoria) > lista de a 10 por fecha descendente, con total, y filtra por mes y estado (RN29) 3ms
+ ✓ test/validacionEntrada.test.ts > T14 — RN16: horas > acepta 0,5 y exactamente las horas por jornada 15ms
+ ✓ test/validacionEntrada.test.ts > T14 — RN16: horas > rechaza 0, más que la jornada y lo que no es múltiplo de 0,5 7ms
+ ✓ test/validacionEntrada.test.ts > T14 — RN17: textos > acepta actividad de 5 y de 120 caracteres y recorta espacios 5ms
+ ✓ test/validacionEntrada.test.ts > T14 — RN17: textos > rechaza actividad de 4 y de 121 caracteres 3ms
+ ✓ test/validacionEntrada.test.ts > T14 — RN17: textos > descripción opcional hasta 2000 caracteres 3ms
+ ✓ test/validacionEntrada.test.ts > T14 — RN17: textos > hasta 5 etiquetas de hasta 30 caracteres, sin repetir 6ms
+ ✓ test/validacionEntrada.test.ts > T14 — RN18: evidencias > acepta hasta 5 evidencias http o https 3ms
+ ✓ test/validacionEntrada.test.ts > T14 — RN18: evidencias > rechaza 6 evidencias 2ms
+ ✓ test/validacionEntrada.test.ts > T14 — RN18: evidencias > rechaza una URL "ftp://x" o sin dominio 2ms
+ ✓ test/validacionEntrada.test.ts > T14 — RN18: evidencias > rechaza tipo desconocido, título corto y URL de más de 500 caracteres 2ms
+ ✓ test/estadosYPlazos.test.ts > T15 — RN19: transiciones de estado > BORRADOR → BORRADOR: rechazada 3ms
+ ✓ test/estadosYPlazos.test.ts > T15 — RN19: transiciones de estado > BORRADOR → ENVIADA: permitida 0ms
+ ✓ test/estadosYPlazos.test.ts > T15 — RN19: transiciones de estado > BORRADOR → OBSERVADA: rechazada 0ms
+ ✓ test/estadosYPlazos.test.ts > T15 — RN19: transiciones de estado > BORRADOR → VALIDADA: rechazada 0ms
+ ✓ test/estadosYPlazos.test.ts > T15 — RN19: transiciones de estado > ENVIADA → BORRADOR: rechazada 0ms
+ ✓ test/estadosYPlazos.test.ts > T15 — RN19: transiciones de estado > ENVIADA → ENVIADA: rechazada 0ms
+ ✓ test/estadosYPlazos.test.ts > T15 — RN19: transiciones de estado > ENVIADA → OBSERVADA: permitida 0ms
+ ✓ test/estadosYPlazos.test.ts > T15 — RN19: transiciones de estado > ENVIADA → VALIDADA: permitida 0ms
+ ✓ test/estadosYPlazos.test.ts > T15 — RN19: transiciones de estado > OBSERVADA → BORRADOR: rechazada 0ms
+ ✓ test/estadosYPlazos.test.ts > T15 — RN19: transiciones de estado > OBSERVADA → ENVIADA: permitida 0ms
+ ✓ test/estadosYPlazos.test.ts > T15 — RN19: transiciones de estado > OBSERVADA → OBSERVADA: rechazada 0ms
+ ✓ test/estadosYPlazos.test.ts > T15 — RN19: transiciones de estado > OBSERVADA → VALIDADA: rechazada 0ms
+ ✓ test/estadosYPlazos.test.ts > T15 — RN19: transiciones de estado > VALIDADA → BORRADOR: rechazada 0ms
+ ✓ test/estadosYPlazos.test.ts > T15 — RN19: transiciones de estado > VALIDADA → ENVIADA: rechazada 0ms
+ ✓ test/estadosYPlazos.test.ts > T15 — RN19: transiciones de estado > VALIDADA → OBSERVADA: rechazada 0ms
+ ✓ test/estadosYPlazos.test.ts > T15 — RN19: transiciones de estado > VALIDADA → VALIDADA: rechazada 0ms
+ ✓ test/estadosYPlazos.test.ts > T15 — RN20: edición y borrado > se editan solo BORRADOR y OBSERVADA 1ms
+ ✓ test/estadosYPlazos.test.ts > T15 — RN20: edición y borrado > se borra solo BORRADOR 0ms
+ ✓ test/estadosYPlazos.test.ts > T15 — RN13 y RN14: fechas futuras y plazo de carga > mañana es futura; hoy no 0ms
+ ✓ test/estadosYPlazos.test.ts > T15 — RN13 y RN14: fechas futuras y plazo de carga > si la fecha es el jueves 10, el último día para cargarla es el jueves 17 0ms
+ ✓ test/estadosYPlazos.test.ts > T15 — RN13 y RN14: fechas futuras y plazo de carga > hoy está en plazo y una fecha futura no 0ms
+ ✓ test/estadosYPlazos.test.ts > T15 — RN13 y RN14: fechas futuras y plazo de carga > días restantes: 7 el mismo día, 0 el último día (RN25) 0ms
+ ✓ test/estadosYPlazos.test.ts > T15 — RN21: plazo de corrección > observada el 10: se reenvía hasta el 17 inclusive 0ms
+ ✓ test/calendario.test.ts > T10 — RN8: día de práctica > el primer y el último día de la comisión cuentan si caen en sus días 3ms
+ ✓ test/calendario.test.ts > T10 — RN8: día de práctica > fuera del rango de fechas no es día de práctica 0ms
+ ✓ test/calendario.test.ts > T10 — RN8: día de práctica > un día hábil que no es de la comisión o un fin de semana no es día de práctica 0ms
+ ✓ test/calendario.test.ts > T10 — RN8: día de práctica > un feriado y un receso de la propia comisión no son días de práctica 0ms
+ ✓ test/calendario.test.ts > T10 — RN8: día de práctica > un receso de otra comisión no afecta 0ms
+ ✓ test/calendario.test.ts > T10 — RN8: día de práctica > lista los días de práctica descontando feriados y recesos, y corta en "hasta" 4ms
+ ✓ test/salud.test.ts > T01 — /api/salud > responde 200 con estado ok 54ms
+ ✓ test/adminInicial.test.ts > T07 — RN1: administrador inicial > si no hay administradores, crea uno con las credenciales iniciales y se puede iniciar sesión 105ms
+ ✓ test/adminInicial.test.ts > T07 — RN1: administrador inicial > si ya existe un administrador, no crea otro 7ms
+ ✓ test/adminInicial.test.ts > T07 — RN1: administrador inicial > rechaza una contraseña inicial que no cumple RN2 5ms
+ ✓ test/migraciones.test.ts > T04 — migraciones > el esquema se aplica sin errores en PostgreSQL 4985ms
+ ✓ test/repositorios.test.ts > PostgreSQL > T05 — contrato de usuarios y comisiones (postgres) > crea un usuario guardando el email en minúsculas y lo encuentra sin distinguir mayúsculas (RN2) 5315ms
+ ✓ test/repositorios.test.ts > PostgreSQL > T05 — contrato de usuarios y comisiones (postgres) > rechaza un email repetido con EmailDuplicado (RN2) 5249ms
+ ✓ test/repositorios.test.ts > PostgreSQL > T05 — contrato de usuarios y comisiones (postgres) > guarda los intentos fallidos y el bloqueo (RN6) 5695ms
+ ✓ test/repositorios.test.ts > PostgreSQL > T05 — contrato de usuarios y comisiones (postgres) > crea comisiones, las busca por código y por docente, y las actualiza 6341ms
+ ✓ test/repositorios.test.ts > PostgreSQL > T05 — contrato de usuarios y comisiones (postgres) > rechaza un código de inscripción repetido con CodigoDuplicado (RN7) 5376ms
+ ✓ test/repositorios.test.ts > PostgreSQL > T13 — contrato de días no laborables (postgres) > viene con los feriados nacionales 2026 precargados (RN9) 5881ms
+ ✓ test/repositorios.test.ts > PostgreSQL > T13 — contrato de días no laborables (postgres) > para una comisión devuelve feriados y sus recesos, pero no los de otra (RN9) 6109ms
+ ✓ test/repositorios.test.ts > PostgreSQL > T13 — contrato de días no laborables (postgres) > rechaza la misma fecha con el mismo alcance, pero permite la misma fecha en otra comisión (RN9) 7343ms
+ ✓ test/repositorios.test.ts > PostgreSQL > T13 — contrato de días no laborables (postgres) > borra un día no laborable 6044ms
+ ✓ test/repositorios.test.ts > PostgreSQL > T16 — contrato de entradas (postgres) > crea una entrada en BORRADOR, versión 1, con sus evidencias en orden 7842ms
+ ✓ test/repositorios.test.ts > PostgreSQL > T16 — contrato de entradas (postgres) > rechaza una segunda entrada del mismo estudiante en la misma fecha (RN15) 8044ms
+ ✓ test/repositorios.test.ts > PostgreSQL > T16 — contrato de entradas (postgres) > actualiza con la versión correcta: suma 1 y reemplaza las evidencias (RN23) 9040ms
+ ✓ test/repositorios.test.ts > PostgreSQL > T16 — contrato de entradas (postgres) > rechaza actualizar o borrar con una versión vieja (RN23) 10300ms
+ ✓ test/repositorios.test.ts > PostgreSQL > T16 — contrato de entradas (postgres) > guarda comentarios con el nombre del autor y cambia el estado 10291ms
+ ✓ test/repositorios.test.ts > PostgreSQL > T16 — contrato de entradas (postgres) > T25 — RN15: 5 pedidos en paralelo para la misma fecha crean una sola entrada 8015ms
+ ✓ test/repositorios.test.ts > PostgreSQL > T16 — contrato de entradas (postgres) > T25 — RN23: 3 cambios en paralelo con la misma versión: uno gana y los otros reciben versión desactualizada 9657ms
+ ✓ test/repositorios.test.ts > PostgreSQL > T16 — contrato de entradas (postgres) > borra con la versión correcta 7700ms
+ ✓ test/repositorios.test.ts > PostgreSQL > T16 — contrato de entradas (postgres) > lista de a 10 por fecha descendente, con total, y filtra por mes y estado (RN29) 34909ms
+
+ Test Files  23 passed (23)
+      Tests  189 passed (189)
+   Start at  22:15:07
+   Duration  164.38s (tests 88%, import 11%, transform 1%)
+
