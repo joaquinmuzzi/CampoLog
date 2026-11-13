@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken';
 import { Config } from '../config';
 import { estaBloqueado, trasIntentoCorrecto, trasIntentoFallido } from '../dominio/bloqueo';
 import { aPublico, Rol, Usuario, UsuarioPublico } from '../dominio/tipos';
-import { esquemaLogin } from '../dominio/validaciones';
+import { esquemaEmail, esquemaLogin, esquemaPassword } from '../dominio/validaciones';
 import { ErrorNegocio } from '../errores';
 import { Reloj } from '../reloj';
 import { Repos } from '../repositorios/tipos';
@@ -50,6 +50,20 @@ export class AuthServicio {
     } catch {
       throw new ErrorNegocio(401, 'Tu sesión venció o no es válida. Iniciá sesión de nuevo.');
     }
+  }
+
+  /** RN1: si no hay ningún administrador, crea el inicial. Devuelve true si lo creó. */
+  async asegurarAdminInicial(email: string, password: string): Promise<boolean> {
+    if ((await this.repos.usuarios.contarPorRol('ADMIN')) > 0) return false;
+    await this.repos.usuarios.crear({
+      nombre: 'Coordinación',
+      apellido: 'CampoLog',
+      email: esquemaEmail.parse(email),
+      passwordHash: await this.hashear(esquemaPassword.parse(password)),
+      rol: 'ADMIN',
+      comisionId: null,
+    });
+    return true;
   }
 
   async login(cuerpo: unknown): Promise<Sesion> {
