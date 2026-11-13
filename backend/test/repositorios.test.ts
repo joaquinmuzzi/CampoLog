@@ -2,6 +2,7 @@ import { describe } from 'vitest';
 import { crearReposMemoria, crearReposPg } from '../src/repositorios';
 import { crearBaseDePrueba, URL_PG_PRUEBA } from './ayudas/pg';
 import { contratoDiasNoLaborables } from './contrato/diasNoLaborables';
+import { contratoEntradas } from './contrato/entradas';
 import { contratoUsuariosYComisiones, FabricaRepos } from './contrato/usuariosYComisiones';
 
 const memoria: FabricaRepos = async () => ({ repos: crearReposMemoria(), limpiar: async () => {} });
@@ -11,7 +12,7 @@ const postgres: FabricaRepos = async () => {
   return { repos: crearReposPg(pool), limpiar };
 };
 
-const contratos = [contratoUsuariosYComisiones, contratoDiasNoLaborables];
+const contratos = [contratoUsuariosYComisiones, contratoDiasNoLaborables, contratoEntradas];
 
 for (const contrato of contratos) contrato('memoria', memoria);
 

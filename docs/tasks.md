@@ -23,7 +23,7 @@
 | T13 | Días no laborables y feriados 2026 | backend | [x] |
 | T14 | Dominio: validación de datos de una entrada | backend | [x] |
 | T15 | Dominio: plazos y transiciones de estado | backend | [x] |
-| T16 | Repositorios de entradas (memoria y PostgreSQL) con versión | backend | [ ] |
+| T16 | Repositorios de entradas (memoria y PostgreSQL) con versión | backend | [x] |
 | T17 | Crear entrada (con concurrencia) | backend | [ ] |
 | T18 | Leer, listar, editar y borrar entradas | backend | [ ] |
 | T19 | Enviar entrada a revisión | backend | [ ] |
