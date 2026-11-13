@@ -8,6 +8,7 @@ import { crearRutasComisiones } from './rutas/comisiones';
 import { crearRutasDiasNoLaborables } from './rutas/diasNoLaborables';
 import { crearRutasDocentes } from './rutas/docentes';
 import { crearRutasEntradas } from './rutas/entradas';
+import { AccesoServicio } from './servicios/accesoServicio';
 import { AuthServicio } from './servicios/authServicio';
 import { ComisionServicio } from './servicios/comisionServicio';
 import { DiaNoLaborableServicio } from './servicios/diaNoLaborableServicio';
@@ -33,7 +34,8 @@ export function crearServicios({ repos, reloj, config }: Dependencias): Servicio
   const usuarios = new UsuarioServicio(repos, auth);
   const comisiones = new ComisionServicio(repos, reloj);
   const diasNoLaborables = new DiaNoLaborableServicio(repos, reloj);
-  const entradas = new EntradaServicio(repos, reloj);
+  const acceso = new AccesoServicio(repos);
+  const entradas = new EntradaServicio(repos, reloj, acceso);
   return { auth, usuarios, comisiones, diasNoLaborables, entradas };
 }
 
