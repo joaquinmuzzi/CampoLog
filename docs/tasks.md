@@ -29,7 +29,7 @@
 | T19 | Enviar entrada a revisión | backend | [x] |
 | T20 | Validar y observar entradas | backend | [x] |
 | T21 | Dominio: pendientes, asistencia, riesgo y horas | backend | [x] |
-| T22 | Calendario mensual y resumen del estudiante | backend | [ ] |
+| T22 | Calendario mensual y resumen del estudiante | backend | [x] |
 | T23 | Estudiantes de una comisión y vista del docente | backend | [ ] |
 | T24 | Exportación CSV | backend | [ ] |
 | T25 | Tests de contrato contra PostgreSQL | tester | [ ] |
