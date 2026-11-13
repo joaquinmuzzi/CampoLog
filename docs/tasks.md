@@ -15,7 +15,7 @@
 | T05 | Repositorios en memoria y PostgreSQL de usuarios y comisiones | backend | [x] |
 | T06 | Contraseñas, tokens y login con bloqueo | backend | [x] |
 | T07 | Administrador inicial al arrancar | backend | [x] |
-| T08 | Middleware de autenticación y roles | backend | [ ] |
+| T08 | Middleware de autenticación y roles | backend | [x] |
 | T09 | Alta y listado de docentes | backend | [ ] |
 | T10 | Dominio: calendario de días de práctica | backend | [ ] |
 | T11 | Comisiones: crear, editar y código de inscripción | backend | [ ] |

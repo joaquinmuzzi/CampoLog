@@ -2,7 +2,7 @@ import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import { Config } from '../config';
 import { estaBloqueado, trasIntentoCorrecto, trasIntentoFallido } from '../dominio/bloqueo';
-import { aPublico, Rol, Usuario, UsuarioPublico } from '../dominio/tipos';
+import { aPublico, Comision, Rol, Usuario, UsuarioPublico } from '../dominio/tipos';
 import { esquemaEmail, esquemaLogin, esquemaPassword } from '../dominio/validaciones';
 import { ErrorNegocio } from '../errores';
 import { Reloj } from '../reloj';
@@ -64,6 +64,14 @@ export class AuthServicio {
       comisionId: null,
     });
     return true;
+  }
+
+  /** Usuario de la sesión actual y, si es estudiante, su comisión. */
+  async yo(id: number): Promise<{ usuario: UsuarioPublico; comision: Comision | null }> {
+    const usuario = await this.repos.usuarios.porId(id);
+    if (!usuario) throw new ErrorNegocio(401, 'Tu sesión venció o no es válida. Iniciá sesión de nuevo.');
+    const comision = usuario.comisionId ? await this.repos.comisiones.porId(usuario.comisionId) : null;
+    return { usuario: aPublico(usuario), comision };
   }
 
   async login(cuerpo: unknown): Promise<Sesion> {
