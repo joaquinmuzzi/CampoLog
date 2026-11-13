@@ -13,6 +13,7 @@ import { AuthServicio } from './servicios/authServicio';
 import { ComisionServicio } from './servicios/comisionServicio';
 import { DiaNoLaborableServicio } from './servicios/diaNoLaborableServicio';
 import { EntradaServicio } from './servicios/entradaServicio';
+import { RevisionServicio } from './servicios/revisionServicio';
 import { UsuarioServicio } from './servicios/usuarioServicio';
 
 export interface Dependencias {
@@ -26,17 +27,23 @@ export interface Servicios {
   usuarios: UsuarioServicio;
   comisiones: ComisionServicio;
   diasNoLaborables: DiaNoLaborableServicio;
+  acceso: AccesoServicio;
   entradas: EntradaServicio;
+  revision: RevisionServicio;
 }
 
 export function crearServicios({ repos, reloj, config }: Dependencias): Servicios {
   const auth = new AuthServicio(repos, reloj, config);
-  const usuarios = new UsuarioServicio(repos, auth);
-  const comisiones = new ComisionServicio(repos, reloj);
-  const diasNoLaborables = new DiaNoLaborableServicio(repos, reloj);
   const acceso = new AccesoServicio(repos);
-  const entradas = new EntradaServicio(repos, reloj, acceso);
-  return { auth, usuarios, comisiones, diasNoLaborables, entradas };
+  return {
+    auth,
+    usuarios: new UsuarioServicio(repos, auth),
+    comisiones: new ComisionServicio(repos, reloj),
+    diasNoLaborables: new DiaNoLaborableServicio(repos, reloj),
+    acceso,
+    entradas: new EntradaServicio(repos, reloj, acceso),
+    revision: new RevisionServicio(repos, reloj, acceso),
+  };
 }
 
 export function crearApp(deps?: Dependencias): Express {

@@ -3,7 +3,7 @@ import type { Servicios } from '../app';
 import { usuarioDe } from '../middlewares/autenticacion';
 import { idDeRuta } from './parametros';
 
-export function controladorEntradas({ entradas }: Servicios) {
+export function controladorEntradas({ entradas, revision }: Servicios) {
   const crear: RequestHandler = async (req, res) => {
     res.status(201).json(await entradas.crear(usuarioDe(res), req.body));
   };
@@ -23,5 +23,11 @@ export function controladorEntradas({ entradas }: Servicios) {
   const enviar: RequestHandler = async (req, res) => {
     res.json(await entradas.enviar(usuarioDe(res), idDeRuta(req.params.id, 'Entrada'), req.body));
   };
-  return { crear, listarPropias, obtener, editar, borrar, enviar };
+  const validar: RequestHandler = async (req, res) => {
+    res.json(await revision.validar(usuarioDe(res), idDeRuta(req.params.id, 'Entrada'), req.body));
+  };
+  const observar: RequestHandler = async (req, res) => {
+    res.json(await revision.observar(usuarioDe(res), idDeRuta(req.params.id, 'Entrada'), req.body));
+  };
+  return { crear, listarPropias, obtener, editar, borrar, enviar, validar, observar };
 }

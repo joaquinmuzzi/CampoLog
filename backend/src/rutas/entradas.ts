@@ -13,5 +13,7 @@ export function crearRutasEntradas(servicios: Servicios): Router {
   rutas.patch('/:id', requerirRol('ESTUDIANTE'), c.editar);
   rutas.delete('/:id', requerirRol('ESTUDIANTE'), c.borrar);
   rutas.post('/:id/enviar', requerirRol('ESTUDIANTE'), c.enviar);
+  rutas.post('/:id/validar', requerirRol('DOCENTE'), c.validar);
+  rutas.post('/:id/observar', requerirRol('DOCENTE'), c.observar);
   return rutas;
 }
