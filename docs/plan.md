@@ -108,7 +108,7 @@ Prefijo `/api`. JSON en todos los casos salvo la exportación (CSV). Errores con
 
 | Regla | Archivo principal | Garantía extra |
 |---|---|---|
-| RN1 | `servicios/authServicio.ts` (`asegurarAdminInicial`) | se llama en `server.ts` al arrancar |
+| RN1 | `servicios/authServicio.ts` (`asegurarAdminInicial`) | se llama en `arranque.ts` al iniciar el servidor |
 | RN2 | `dominio/validaciones.ts`, `servicios/authServicio.ts` | `UNIQUE(email)` |
 | RN3 | `servicios/authServicio.ts` (`registrarEstudiante`) | FK `comision_id` |
 | RN4 | `servicios/usuarioServicio.ts`, `rutas` con rol admin | — |

@@ -1,0 +1,35 @@
+Tests del frontend (Vitest + Testing Library + jsdom). Fecha: 2026-11-13T02:05Z
+
+
+ RUN  v5.1.0 C:/Users/Joaquín Muzzi/Desktop/Generacion T - TPs/CampoLog/frontend
+
+ ✓ src/api/cliente.test.ts > T26 — cliente de la API > agrega el token en la cabecera Authorization 11ms
+ ✓ src/api/cliente.test.ts > T26 — cliente de la API > manda el cuerpo como JSON 3ms
+ ✓ src/api/cliente.test.ts > T26 — cliente de la API > convierte un error del backend en ErrorApi con su mensaje y detalle (por ejemplo, un 409) 2ms
+ ✓ src/api/cliente.test.ts > T26 — cliente de la API > un 401 con sesión iniciada avisa que la sesión venció 2ms
+ ✓ src/api/cliente.test.ts > T26 — cliente de la API > sin conexión devuelve un mensaje claro 1ms
+stderr | src/paginas/estudiante/EntradaFormulario.test.tsx > T29 — formulario de entrada > ofrece solo los días pendientes y las horas de a media hasta la jornada
+⚠️ React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_starttransition.
+⚠️ React Router Future Flag Warning: Relative route resolution within Splat routes is changing in v7. You can use the `v7_relativeSplatPath` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_relativesplatpath.
+
+stderr | src/paginas/docente/Docente.test.tsx > T30 — revisión docente > observar exige un comentario de 10 a 500 caracteres (RN22)
+⚠️ React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_starttransition.
+⚠️ React Router Future Flag Warning: Relative route resolution within Splat routes is changing in v7. You can use the `v7_relativeSplatPath` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_relativesplatpath.
+
+ ✓ src/componentes/CalendarioMes.test.tsx > T28 — calendario del mes > deja un hueco antes del martes 1 y muestra el estado de cada día 83ms
+ ✓ src/componentes/CalendarioMes.test.tsx > T28 — calendario del mes > solo los días pendientes y con entrada se pueden elegir 106ms
+ ✓ src/paginas/admin/Admin.test.tsx > T31 — formulario de comisión > arma los datos con los días elegidos y muestra el error del backend (RN7) 176ms
+ ✓ src/paginas/admin/Admin.test.tsx > T31 — formulario de comisión > si la comisión ya empezó, bloquea días, fechas y horas pero deja cambiar el nombre (RN11) 21ms
+ ✓ src/paginas/estudiante/EntradaFormulario.test.tsx > T29 — formulario de entrada > ofrece solo los días pendientes y las horas de a media hasta la jornada 114ms
+ ✓ src/paginas/estudiante/EntradaFormulario.test.tsx > T29 — formulario de entrada > si el día ya tiene entrada, avisa y ofrece abrirla (RN15) 67ms
+ ✓ src/paginas/estudiante/EntradaFormulario.test.tsx > T29 — formulario de entrada > ante un conflicto de versión avisa y recarga la entrada (RN23) 46ms
+ ✓ src/paginas/estudiante/EntradaFormulario.test.tsx > T29 — formulario de entrada > una entrada enviada se muestra sin formulario (RN20) 13ms
+ ✓ src/paginas/docente/Docente.test.tsx > T30 — revisión docente > observar exige un comentario de 10 a 500 caracteres (RN22) 174ms
+ ✓ src/paginas/docente/Docente.test.tsx > T30 — revisión docente > validar manda la versión; si otro la revisó, avisa y recarga (RN23) 28ms
+ ✓ src/paginas/docente/Docente.test.tsx > T30 — revisión docente > la tabla marca a los estudiantes en riesgo y enlaza a lo que falta revisar (RN26) 10ms
+
+ Test Files  5 passed (5)
+      Tests  16 passed (16)
+   Start at  23:05:56
+   Duration  5.68s (environment 74%, import 21%, tests 4%, transform 2%)
+

@@ -1,0 +1,52 @@
+Corrida contra el build de producción del backend (npm run build + node dist/server.js) en localhost:3100,
+conectado a la base PostgreSQL de Railway en un esquema aislado (e2e_1794535312) que se borra al terminar.
+
+Prueba de la API de CampoLog — http://localhost:3100 — 2026-11-13T02:01:59.852Z
+
+✓ [—] GET /salud → 200
+✓ [—] Ruta inexistente → 404
+✓ [RN5] Pedido protegido sin token → 401
+✓ [CORS] Origen del frontend publicado recibe permiso → http://localhost:5173
+✓ [CORS] Origen ajeno no recibe permiso → null
+✓ [RN1] Login del administrador inicial → 200
+✓ [RN4] El administrador crea un docente → 201
+✓ [RN7] Comisión de más de 270 días → 400 · La comisión puede durar como máximo 270 días
+✓ [RN7] El administrador crea una comisión de lunes a viernes → 201 · código ME5TFX
+✓ [RN11] Cambiar las horas de una comisión que ya empezó → 400 · La comisión ya empezó: sus días de práctica, fechas y horas por jornada no se pueden modificar
+✓ [RN9] Un docente intenta cargar un feriado → 403
+✓ [RN10] Un docente carga un receso con fecha pasada → 400
+✓ [RN3] Registro con código inexistente → 400 · El código de inscripción no corresponde a ninguna comisión
+✓ [RN2] Registro con contraseña sin números → 400 · La contraseña tiene que tener al menos un número
+✓ [RN3] Registro con el código ME5TFX → 201
+✓ [RN2] Registro con un email ya usado → 409
+✓ [RN6] Quinto intento fallido de login → 401
+✓ [RN6] Login correcto con la cuenta bloqueada (15 min) → 423 · La cuenta está bloqueada por demasiados intentos fallidos. Probá de nuevo en 15 minutos.
+✓ [RN5] Login del docente a cargo → 200
+✓ [RN24] Estudiante pide la lista de comisiones → 403
+✓ [RN4] Docente intenta crear un docente → 403
+✓ [RN25] Resumen del estudiante → 200 · 6 días pendientes de carga
+✓ [RN13] Crear una entrada con fecha futura → 400
+✓ [RN12] Crear una entrada un sábado (no es día de práctica) → 400
+✓ [RN16] Horas que no son múltiplo de media hora → 400
+✓ [RN17] Actividad de menos de 5 caracteres → 400
+✓ [RN18] Evidencia que no es un link http(s) → 400
+✓ [RN14] Crear la entrada del 2026-11-12 (pendiente) → 201 · estado BORRADOR, versión 1
+✓ [RN15] Segunda entrada para el mismo día → 409 · detalle.id = 1
+✓ [RN15] 5 pedidos simultáneos para el mismo día crean una sola entrada → 1 · 4 respondieron 409
+✓ [RN24] Otro estudiante abre esa entrada → 404
+✓ [RN21] Enviar sin evidencias → 400 · Para enviar la entrada necesitás cargar al menos una evidencia
+✓ [RN20] Editar el borrador agregando una evidencia → 200 · versión 2
+✓ [RN23] Editar con una versión vieja → 409 · detalle {"version":2,"estado":"BORRADOR"}
+✓ [RN19] Enviar a revisión → 200 · estado ENVIADA
+✓ [RN20] Editar una entrada enviada → 400
+✓ [RN22] Observar sin comentario → 400
+✓ [RN22] Observar con comentario → 200 · estado OBSERVADA
+✓ [RN20] Corregir la entrada observada → 200
+✓ [RN19] Reenviar la corrección → 200 · estado ENVIADA
+✓ [RN23] Dos validaciones simultáneas: una gana y la otra recibe 409 → 200 y 409
+✓ [RN27] Las horas validadas suman la jornada → 4 · asistencia 4 %
+✓ [RN28] Exportar la carpeta en CSV → 200 · text/csv; charset=utf-8 · 2 filas
+✓ [RN29] La docente lista la carpeta de la estudiante → 200 · 1 entrada(s)
+✓ [RN26] Estudiantes de la comisión, primero los que están en riesgo → 200 · 3 en riesgo
+
+Resultado: 45 pruebas correctas, 0 con error.

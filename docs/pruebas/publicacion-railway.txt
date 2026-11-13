@@ -1,0 +1,37 @@
+Verificación de la publicación en Railway — 2026-11-13T02:06Z
+
+Servicios (proyecto campolog, entorno production):
+  - Postgres  (base administrada; volumen persistente)
+  - backend   raíz /backend · build: npm run build · start: npm start · healthcheck /api/salud
+  - frontend  raíz /frontend · build: npm run build (con VITE_API_URL) · start: npm start (serve)
+
+Variables del backend (solo nombres; los valores están en Railway): DATABASE_URL (referencia a Postgres),
+  JWT_SECRET, BCRYPT_ROUNDS, FRONTEND_URL, INITIAL_ADMIN_EMAIL, INITIAL_ADMIN_PASSWORD, SEMBRAR_DEMO
+Variables del frontend: VITE_API_URL
+
+Log de arranque del backend (primer despliegue):
+  Migraciones aplicadas: 001_inicial.sql, 002_feriados_2026.sql
+  Se creó el administrador inicial
+  Se cargaron los datos de demostración
+  CampoLog API escuchando en el puerto 8080
+
+$ curl https://backend-production-535121a0.up.railway.app/api/salud
+{"estado":"ok"}
+
+$ curl -X OPTIONS https://backend-production-535121a0.up.railway.app/api/auth/login -H 'Origin: https://frontend-production-32dc3f68.up.railway.app' (preflight de CORS desde el frontend)
+HTTP/1.1 204 No Content
+access-control-allow-headers: content-type,authorization
+access-control-allow-origin: https://frontend-production-32dc3f68.up.railway.app
+
+$ curl https://backend-production-535121a0.up.railway.app/api/salud -H 'Origin: https://sitio-ajeno.com' (otro origen: sin Access-Control-Allow-Origin, el navegador lo bloquea)
+HTTP/1.1 200 OK
+access-control-expose-headers: Content-Disposition
+
+$ curl https://backend-production-535121a0.up.railway.app/api/mi/resumen (sin token)
+{"error":"Tenés que iniciar sesión"}
+
+$ curl https://frontend-production-32dc3f68.up.railway.app/estudiante/entradas (ruta del frontend servida como SPA)
+HTTP 200
+
+El bundle del frontend apunta al backend publicado:
+backend-production-535121a0.up.railway.app

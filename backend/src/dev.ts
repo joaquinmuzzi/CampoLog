@@ -6,7 +6,7 @@ import { crearReposMemoria } from './repositorios';
 import { sembrarDemo } from './semilla';
 
 async function main() {
-  const deps = { repos: crearReposMemoria(), reloj: new RelojArgentina(), config: { jwtSecreto: 'solo-para-desarrollo-local', bcryptRondas: 4 } };
+  const deps = { repos: crearReposMemoria(), reloj: new RelojArgentina(), config: { jwtSecreto: 'solo-para-desarrollo-local', bcryptRondas: 4, frontendUrl: 'http://localhost:5173' } };
   const servicios = crearServicios(deps);
   await servicios.auth.asegurarAdminInicial('admin@campolog.demo', 'admin1234');
   await sembrarDemo(deps.repos, servicios.auth, deps.reloj.hoy());
