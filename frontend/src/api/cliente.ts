@@ -1,6 +1,7 @@
 // Cliente único de la API: agrega el token, traduce errores y avisa cuando la sesión venció.
 
-export const URL_API: string = (import.meta.env.VITE_API_URL ?? 'http://localhost:3000').replace(/\/+$/, '');
+// Sin VITE_API_URL se usa el mismo origen (en desarrollo, el proxy de Vite manda /api al backend local).
+export const URL_API: string = (import.meta.env.VITE_API_URL ?? '').replace(/\/+$/, '');
 const CLAVE_TOKEN = 'campolog.token';
 
 /** Error que devuelve el backend: mensaje en español, código HTTP y detalle opcional (por ejemplo, en un 409). */
