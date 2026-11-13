@@ -3,10 +3,20 @@ import jwt from 'jsonwebtoken';
 import { Config } from '../config';
 import { estaBloqueado, trasIntentoCorrecto, trasIntentoFallido } from '../dominio/bloqueo';
 import { aPublico, Comision, Rol, Usuario, UsuarioPublico } from '../dominio/tipos';
-import { esquemaEmail, esquemaLogin, esquemaPassword } from '../dominio/validaciones';
+import { z } from 'zod';
+import { esquemaEmail, esquemaLogin, esquemaPassword, esquemaPersona } from '../dominio/validaciones';
 import { ErrorNegocio } from '../errores';
 import { Reloj } from '../reloj';
+import { EmailDuplicado } from '../repositorios/errores';
 import { Repos } from '../repositorios/tipos';
+
+const esquemaRegistro = esquemaPersona.extend({
+  codigoInscripcion: z
+    .string({ error: 'El código de inscripción es obligatorio' })
+    .trim()
+    .toUpperCase()
+    .min(1, { error: 'El código de inscripción es obligatorio' }),
+});
 
 export const DURACION_SESION_HORAS = 8; // RN5
 
@@ -72,6 +82,23 @@ export class AuthServicio {
     if (!usuario) throw new ErrorNegocio(401, 'Tu sesión venció o no es válida. Iniciá sesión de nuevo.');
     const comision = usuario.comisionId ? await this.repos.comisiones.porId(usuario.comisionId) : null;
     return { usuario: aPublico(usuario), comision };
+  }
+
+  /** RN3: el estudiante se registra solo con el código de inscripción de su comisión. */
+  async registrarEstudiante(cuerpo: unknown): Promise<Sesion> {
+    const datos = esquemaRegistro.parse(cuerpo);
+    const comision = await this.repos.comisiones.porCodigo(datos.codigoInscripcion);
+    if (!comision) throw new ErrorNegocio(400, 'El código de inscripción no corresponde a ninguna comisión');
+    try {
+      const estudiante = await this.repos.usuarios.crear({
+        nombre: datos.nombre, apellido: datos.apellido, email: datos.email,
+        passwordHash: await this.hashear(datos.password), rol: 'ESTUDIANTE', comisionId: comision.id,
+      });
+      return { token: this.emitirToken(estudiante), usuario: aPublico(estudiante) };
+    } catch (error) {
+      if (error instanceof EmailDuplicado) throw new ErrorNegocio(409, 'Ya existe una cuenta con ese email');
+      throw error;
+    }
   }
 
   async login(cuerpo: unknown): Promise<Sesion> {

@@ -3,6 +3,10 @@ import type { Servicios } from '../app';
 import { usuarioDe } from '../middlewares/autenticacion';
 
 export function controladorAuth({ auth }: Servicios) {
+  const registro: RequestHandler = async (req, res) => {
+    res.status(201).json(await auth.registrarEstudiante(req.body));
+  };
+
   const login: RequestHandler = async (req, res) => {
     res.json(await auth.login(req.body));
   };
@@ -11,5 +15,5 @@ export function controladorAuth({ auth }: Servicios) {
     res.json(await auth.yo(usuarioDe(res).id));
   };
 
-  return { login, yo };
+  return { registro, login, yo };
 }
