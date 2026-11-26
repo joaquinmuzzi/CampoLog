@@ -5,7 +5,7 @@ name: Demo en GitHub Pages
 
 on:
   push:
-    branches: [main]
+    branches: [main, demo-github-pages] # TEMPORAL: probar la demo antes del merge
   workflow_dispatch:
 
 permissions:
