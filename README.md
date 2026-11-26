@@ -4,7 +4,28 @@ Carpeta de campo digital para las **Prácticas Profesionalizantes** de las escue
 registra sus jornadas de práctica con evidencias, su docente las revisa (las valida o las observa) y el sistema
 calcula solo los días de práctica, la asistencia, el riesgo y las horas.
 
-## Probar la aplicación publicada
+## ▶️ Probar la demo (sin cuenta)
+
+**👉 [Probar la demo de CampoLog](https://joaquinmuzzi.github.io/CampoLog/)** — https://joaquinmuzzi.github.io/CampoLog/
+
+Se entra con un clic como **estudiante**, **docente** o **administración**, sin registrarse ni escribir contraseñas,
+y desde la franja amarilla de arriba se cambia de rol en cualquier momento. La demo trae una comisión con tres
+estudiantes y entradas en todos los estados.
+
+| Rol | Qué probar |
+|---|---|
+| Estudiante (Ana) | Inicio con pendientes, calendario, cargar una jornada, enviarla, corregir la observada, exportar el CSV |
+| Docente (Laura) | Ver la comisión y los estudiantes en riesgo, revisar (validar u observar) y cargar recesos |
+| Administración | Crear comisiones y docentes, administrar los feriados |
+
+Cómo funciona: es el mismo frontend compilado en modo demo (`npm run build:demo`) y publicado en GitHub Pages por
+[`.github/workflows/pages.yml`](.github/workflows/pages.yml). Como Pages no puede correr el backend, la API corre
+**dentro del navegador** con los mismos servicios, reglas de negocio y repositorios en memoria de `backend/src`
+(ver [`frontend/src/demo/servidor.ts`](frontend/src/demo/servidor.ts)). No usa ninguna cuenta real: los datos viven
+solo en esa pestaña y se reinician al recargar. El build normal (`npm run build`) no incluye nada de esto y sigue
+usando el backend con login.
+
+## Probar la aplicación publicada en Railway (con backend y base de datos)
 
 **👉 https://frontend-production-32dc3f68.up.railway.app**
 
@@ -54,7 +75,7 @@ Las 29 reglas de negocio (RN) y las 15 historias de usuario (HU) están en [`doc
 
 - **Backend:** Node.js + TypeScript + Express 5, Zod, PostgreSQL (`pg`), JWT, bcrypt. Tests con Vitest y Supertest.
 - **Frontend:** React 18 + TypeScript + Vite + React Router. Tests con Vitest y Testing Library.
-- **Publicación:** Railway (servicios `backend`, `frontend` y `Postgres`).
+- **Publicación:** Railway (servicios `backend`, `frontend` y `Postgres`) y la demo sin login en GitHub Pages.
 
 ## Correrlo en la computadora
 
@@ -79,6 +100,9 @@ npm run dev
 Abrir http://localhost:5173 (el frontend manda `/api` al backend de http://localhost:3000). Además de las cuentas
 de demostración, este modo crea el administrador local `admin@campolog.demo` con contraseña `admin1234`
 (solo existe en tu máquina).
+
+**La demo de GitHub Pages, sin backend:** `cd backend && npm install`, después `cd frontend && npm install && npm run dev:demo`
+y abrir http://localhost:5173/CampoLog/.
 
 **Con PostgreSQL:** copiar `backend/.env.example` como `backend/.env`, completar `DATABASE_URL`, `JWT_SECRET` y el
 administrador inicial, y correr `npm run dev` en `backend/`. Al arrancar se aplican las migraciones y se crea el
