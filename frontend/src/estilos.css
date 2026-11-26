@@ -167,3 +167,22 @@ th { color: var(--texto-suave); font-weight: 600; font-size: 0.85rem; }
   .usuario { width: 100%; }
   h1 { font-size: 1.3rem; }
 }
+
+/* Modo demo (GitHub Pages) */
+.demo-barra {
+  background: var(--ambar-claro); color: var(--texto); border-bottom: 1px solid #f0d58a;
+  display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 0.25rem 1rem;
+  padding: 0.35rem 1rem; font-size: 0.88rem;
+}
+.demo-barra select { margin-left: 0.25rem; padding: 0.15rem 0.4rem; border-radius: 6px; border: 1px solid var(--borde); font: inherit; }
+.demo-acceso { border-color: var(--verde); }
+.demo-roles { display: grid; gap: 0.6rem; margin-top: 0.75rem; }
+.demo-rol {
+  display: flex; flex-direction: column; align-items: flex-start; gap: 0.15rem; text-align: left;
+  padding: 0.7rem 0.9rem; border: 1px solid var(--borde); border-radius: 8px; background: var(--verde-claro);
+  color: var(--texto); font: inherit; cursor: pointer;
+}
+.demo-rol strong { color: var(--verde-oscuro); }
+.demo-rol span { color: var(--texto-suave); font-size: 0.88rem; }
+.demo-rol:hover:not(:disabled) { border-color: var(--verde); }
+.demo-rol:disabled { opacity: 0.7; cursor: wait; }

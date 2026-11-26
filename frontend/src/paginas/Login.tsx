@@ -1,8 +1,9 @@
 import { FormEvent, useState } from 'react';
 import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom';
-import { api, ErrorApi } from '../api/cliente';
+import { api, ErrorApi, MODO_DEMO } from '../api/cliente';
 import { Sesion } from '../api/tipos';
 import { Aviso } from '../componentes/comunes';
+import { AccesoDemo } from '../componentes/Demo';
 import { inicioDe, useSesion } from '../sesion/Sesion';
 
 /** HU2 — Iniciar sesión. */
@@ -38,8 +39,10 @@ export function Login() {
       <div className="acceso-caja">
         <div className="acceso-marca">Campo<strong>Log</strong></div>
         <p className="acceso-lema">La carpeta de campo de tus Prácticas Profesionalizantes, al día.</p>
+        {MODO_DEMO && <AccesoDemo />}
         <section className="tarjeta">
-          <h1>Iniciar sesión</h1>
+          <h1>{MODO_DEMO ? 'O iniciá sesión con una cuenta de la demo' : 'Iniciar sesión'}</h1>
+          {MODO_DEMO && <p className="subtitulo">Contraseña de todas: <code>demo1234</code> (por ejemplo, <code>bruno@campolog.demo</code>, un estudiante en riesgo).</p>}
           <Aviso>{error}</Aviso>
           <form className="formulario" onSubmit={enviar}>
             <div className="campo">

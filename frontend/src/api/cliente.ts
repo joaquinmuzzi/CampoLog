@@ -4,6 +4,9 @@
 export const URL_API: string = (import.meta.env.VITE_API_URL ?? '').replace(/\/+$/, '');
 const CLAVE_TOKEN = 'campolog.token';
 
+/** Build de demo para GitHub Pages: la API corre en el navegador (src/demo/servidor.ts), sin servidor ni base. */
+export const MODO_DEMO: boolean = import.meta.env.VITE_DEMO === 'true';
+
 /** Error que devuelve el backend: mensaje en español, código HTTP y detalle opcional (por ejemplo, en un 409). */
 export class ErrorApi extends Error {
   constructor(public readonly status: number, mensaje: string, public readonly detalle?: Record<string, unknown>) {
@@ -39,11 +42,13 @@ async function pedido(metodo: string, ruta: string, cuerpo?: unknown): Promise<R
 
   let res: Response;
   try {
-    res = await fetch(`${URL_API}/api${ruta}`, {
-      method: metodo,
-      headers: cabeceras,
-      body: cuerpo === undefined ? undefined : JSON.stringify(cuerpo),
-    });
+    res = MODO_DEMO
+      ? await (await import('@campolog/demo')).atenderDemo(metodo, ruta, cabeceras, cuerpo)
+      : await fetch(`${URL_API}/api${ruta}`, {
+        method: metodo,
+        headers: cabeceras,
+        body: cuerpo === undefined ? undefined : JSON.stringify(cuerpo),
+      });
   } catch {
     throw new ErrorApi(0, 'No se pudo conectar con el servidor. Revisá tu conexión e intentá de nuevo.');
   }

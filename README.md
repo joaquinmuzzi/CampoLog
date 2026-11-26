@@ -4,13 +4,28 @@ Carpeta de campo digital para las **Prácticas Profesionalizantes** de las escue
 registra sus jornadas de práctica con evidencias, su docente las revisa (las valida o las observa) y el sistema
 calcula solo los días de práctica, la asistencia, el riesgo y las horas.
 
-## Probar la aplicación publicada
+## Probar la demo (sin cuenta)
 
-**👉 https://frontend-production-32dc3f68.up.railway.app**
+**👉 [Probar la demo de CampoLog](https://joaquinmuzzi.github.io/CampoLog/)** — https://joaquinmuzzi.github.io/CampoLog/
 
-API: https://backend-production-535121a0.up.railway.app/api/salud
+Se entra con un clic como **estudiante**, **docente** o **administración**, sin registrarse ni escribir contraseñas,
+y desde la franja amarilla de arriba se cambia de rol en cualquier momento. La demo trae una comisión con tres
+estudiantes y entradas en todos los estados.
 
-Cuentas de demostración (contraseña `demo1234`):
+| Rol | Qué probar |
+|---|---|
+| Estudiante (Ana) | Inicio con pendientes, calendario, cargar una jornada, enviarla, corregir la observada, exportar el CSV |
+| Docente (Laura) | Ver la comisión y los estudiantes en riesgo, revisar (validar u observar) y cargar recesos |
+| Administración | Crear comisiones y docentes, administrar los feriados |
+
+Cómo funciona: es el mismo frontend compilado en modo demo (`npm run build:demo`) y publicado en GitHub Pages por
+[`.github/workflows/pages.yml`](.github/workflows/pages.yml). Como Pages no puede correr el backend, la API corre
+**dentro del navegador** con los mismos servicios, reglas de negocio y repositorios en memoria de `backend/src`
+(ver [`frontend/src/demo/servidor.ts`](frontend/src/demo/servidor.ts)). No usa ninguna cuenta real: los datos viven
+solo en esa pestaña y se reinician al recargar. El build normal (`npm run build`) no incluye nada de esto y sigue
+usando el backend con login.
+
+Cuentas de la demo (contraseña `demo1234`, también se pueden escribir en el formulario de inicio de sesión):
 
 | Rol | Email | Qué probar |
 |---|---|---|
@@ -19,10 +34,18 @@ Cuentas de demostración (contraseña `demo1234`):
 | Estudiante | `bruno@campolog.demo`, `carla@campolog.demo` | Estudiantes con asistencia baja (en riesgo) |
 
 También se puede crear una cuenta de estudiante nueva desde **"Creala con el código de tu comisión"** usando el
-código **`DEMO26`**. La cuenta de administración no se publica en este README (se entrega aparte).
+código **`DEMO26`**.
 
-> La comisión de demostración es de martes y jueves, del 04/08/2026 al 10/12/2026. Solo se pueden cargar
-> jornadas de días de práctica de los últimos 7 días (RN12–RN14).
+> La comisión de demostración es de martes y jueves, del 04/08/2026 al 10/12/2026 (fuera de ese período, la demo
+> corre las fechas para que "hoy" quede en plena cursada). Solo se pueden cargar jornadas de días de práctica de
+> los últimos 7 días (RN12–RN14).
+
+### Versión completa en Railway (dada de baja)
+
+La versión con backend, PostgreSQL y login real estuvo publicada en Railway (servicios `frontend`, `backend` y
+`Postgres`). Las pruebas que se hicieron ahí están en [`docs/informe.md`](docs/informe.md) y
+[`docs/pruebas/`](docs/pruebas). Esos servicios se dieron de baja el 26/11/2026; la configuración sigue en el repositorio
+(ver [Variables de entorno](#variables-de-entorno)) por si hay que volver a publicarla.
 
 ## Qué resuelve
 
@@ -54,7 +77,7 @@ Las 29 reglas de negocio (RN) y las 15 historias de usuario (HU) están en [`doc
 
 - **Backend:** Node.js + TypeScript + Express 5, Zod, PostgreSQL (`pg`), JWT, bcrypt. Tests con Vitest y Supertest.
 - **Frontend:** React 18 + TypeScript + Vite + React Router. Tests con Vitest y Testing Library.
-- **Publicación:** Railway (servicios `backend`, `frontend` y `Postgres`).
+- **Publicación:** Railway (servicios `backend`, `frontend` y `Postgres`) y la demo sin login en GitHub Pages.
 
 ## Correrlo en la computadora
 
@@ -80,6 +103,9 @@ Abrir http://localhost:5173 (el frontend manda `/api` al backend de http://local
 de demostración, este modo crea el administrador local `admin@campolog.demo` con contraseña `admin1234`
 (solo existe en tu máquina).
 
+**La demo de GitHub Pages, sin backend:** `cd backend && npm install`, después `cd frontend && npm install && npm run dev:demo`
+y abrir http://localhost:5173/CampoLog/.
+
 **Con PostgreSQL:** copiar `backend/.env.example` como `backend/.env`, completar `DATABASE_URL`, `JWT_SECRET` y el
 administrador inicial, y correr `npm run dev` en `backend/`. Al arrancar se aplican las migraciones y se crea el
 administrador si no existe.
@@ -94,7 +120,7 @@ cd frontend && npm test    # 16 tests
 Prueba de punta a punta de la API (registro, carga, envío, observación, validación, CSV y casos de error):
 
 ```bash
-cd backend && node scripts/probar-api.mjs https://backend-production-535121a0.up.railway.app https://frontend-production-32dc3f68.up.railway.app
+cd backend && node scripts/probar-api.mjs http://localhost:3000   # o la URL del backend publicado (y la del frontend)
 ```
 
 ## Variables de entorno

@@ -1,6 +1,8 @@
 import { NavLink, Outlet, useNavigate } from 'react-router-dom';
+import { MODO_DEMO } from '../api/cliente';
 import { Rol } from '../api/tipos';
 import { useSesion } from '../sesion/Sesion';
+import { BarraDemo } from './Demo';
 
 const MENU: Record<Rol, { a: string; texto: string; fin?: boolean }[]> = {
   ESTUDIANTE: [
@@ -25,6 +27,7 @@ export function Diseno() {
 
   return (
     <div className="app">
+      {MODO_DEMO && <BarraDemo rol={usuario.rol} />}
       <header className="barra">
         <div className="barra-interior">
           <span className="marca" aria-label="CampoLog">Campo<strong>Log</strong></span>

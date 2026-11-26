@@ -1,0 +1,57 @@
+# Publica la demo de CampoLog en GitHub Pages: https://joaquinmuzzi.github.io/CampoLog/
+# Es el frontend compilado en modo demo (npm run build:demo): la API corre en el navegador con los servicios del
+# backend y datos de ejemplo, así que no necesita servidor, base de datos ni login.
+name: Demo en GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: |
+            backend/package-lock.json
+            frontend/package-lock.json
+      # La demo usa el código de backend/src, así que también hacen falta sus dependencias (zod).
+      - name: Instalar dependencias
+        run: |
+          npm ci --prefix backend
+          npm ci --prefix frontend
+      - name: Tests del frontend
+        run: npm test --prefix frontend
+      - name: Compilar la demo
+        run: |
+          npm run build:demo --prefix frontend
+          # Pages no conoce las rutas de React Router: con 404.html, abrir /CampoLog/estudiante también carga la app.
+          cp frontend/dist/index.html frontend/dist/404.html
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v4
+        with:
+          path: frontend/dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

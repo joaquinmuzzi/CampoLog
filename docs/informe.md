@@ -5,10 +5,10 @@ Grupo: Kevin Yavi, Felipe Salinas, Juan Hracek, Santino Portaluppi y Joaquín Mu
 
 | | |
 |---|---|
-| Aplicación publicada | https://frontend-production-32dc3f68.up.railway.app |
-| API publicada | https://backend-production-535121a0.up.railway.app/api/salud |
+| Demo sin login | https://joaquinmuzzi.github.io/CampoLog/ (GitHub Pages) |
+| Aplicación y API en Railway | Publicadas para las pruebas de este informe; dadas de baja el 26/11/2026 |
 | Repositorio | https://github.com/joaquinmuzzi/CampoLog |
-| Cuentas de prueba | Ver el [README](../README.md#probar-la-aplicación-publicada) (contraseña `demo1234`) |
+| Cuentas de prueba | Ver el [README](../README.md#probar-la-demo-sin-cuenta) (contraseña `demo1234`) |
 
 ---
 
