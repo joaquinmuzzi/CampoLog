@@ -4,7 +4,7 @@ Carpeta de campo digital para las **Prácticas Profesionalizantes** de las escue
 registra sus jornadas de práctica con evidencias, su docente las revisa (las valida o las observa) y el sistema
 calcula solo los días de práctica, la asistencia, el riesgo y las horas.
 
-## ▶️ Probar la demo (sin cuenta)
+## Probar la demo (sin cuenta)
 
 **👉 [Probar la demo de CampoLog](https://joaquinmuzzi.github.io/CampoLog/)** — https://joaquinmuzzi.github.io/CampoLog/
 
@@ -25,13 +25,7 @@ Cómo funciona: es el mismo frontend compilado en modo demo (`npm run build:demo
 solo en esa pestaña y se reinician al recargar. El build normal (`npm run build`) no incluye nada de esto y sigue
 usando el backend con login.
 
-## Probar la aplicación publicada en Railway (con backend y base de datos)
-
-**👉 https://frontend-production-32dc3f68.up.railway.app**
-
-API: https://backend-production-535121a0.up.railway.app/api/salud
-
-Cuentas de demostración (contraseña `demo1234`):
+Cuentas de la demo (contraseña `demo1234`, también se pueden escribir en el formulario de inicio de sesión):
 
 | Rol | Email | Qué probar |
 |---|---|---|
@@ -40,10 +34,18 @@ Cuentas de demostración (contraseña `demo1234`):
 | Estudiante | `bruno@campolog.demo`, `carla@campolog.demo` | Estudiantes con asistencia baja (en riesgo) |
 
 También se puede crear una cuenta de estudiante nueva desde **"Creala con el código de tu comisión"** usando el
-código **`DEMO26`**. La cuenta de administración no se publica en este README (se entrega aparte).
+código **`DEMO26`**.
 
-> La comisión de demostración es de martes y jueves, del 04/08/2026 al 10/12/2026. Solo se pueden cargar
-> jornadas de días de práctica de los últimos 7 días (RN12–RN14).
+> La comisión de demostración es de martes y jueves, del 04/08/2026 al 10/12/2026 (fuera de ese período, la demo
+> corre las fechas para que "hoy" quede en plena cursada). Solo se pueden cargar jornadas de días de práctica de
+> los últimos 7 días (RN12–RN14).
+
+### Versión completa en Railway (dada de baja)
+
+La versión con backend, PostgreSQL y login real estuvo publicada en Railway (servicios `frontend`, `backend` y
+`Postgres`). Las pruebas que se hicieron ahí están en [`docs/informe.md`](docs/informe.md) y
+[`docs/pruebas/`](docs/pruebas). Esos servicios se dieron de baja el 26/11/2026; la configuración sigue en el repositorio
+(ver [Variables de entorno](#variables-de-entorno)) por si hay que volver a publicarla.
 
 ## Qué resuelve
 
@@ -118,7 +120,7 @@ cd frontend && npm test    # 16 tests
 Prueba de punta a punta de la API (registro, carga, envío, observación, validación, CSV y casos de error):
 
 ```bash
-cd backend && node scripts/probar-api.mjs https://backend-production-535121a0.up.railway.app https://frontend-production-32dc3f68.up.railway.app
+cd backend && node scripts/probar-api.mjs http://localhost:3000   # o la URL del backend publicado (y la del frontend)
 ```
 
 ## Variables de entorno
